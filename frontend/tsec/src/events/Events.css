@@ -1,0 +1,82 @@
+.grid-container {
+    display: grid;
+    grid-template-rows: auto auto auto auto; /* Define rows for button, card, title, and event list */
+    gap: 20px; /* Space between the grid items */
+    width: 100%; /* Full width */
+    padding: 20px; /* Padding around the grid */
+    background-color: #f4f4f4; /* Light gray background for the entire container */
+}
+
+.button-container,
+.card-container,
+.current-events {
+    text-align: center; /* Center align the text */
+}
+
+/* Button styling */
+.button-container Button {
+    background-color: #ff5722; /* Orange color for the button */
+    border: none; /* Remove default border */
+    color: white; /* White text */
+}
+
+.button-container Button:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+}
+
+/* Card styling */
+.card-container .card {
+    border: 2px solid #9c27b0; /* Purple border for the card */
+}
+
+/* Current events title styling */
+.current-events h2 {
+    color: #9c27b0; /* Purple color for the title */
+}
+
+/* Event list styling */
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between each event row */
+}
+
+/* Event row styling */
+.event-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Two columns: 3 parts for left, 1 part for right */
+    gap: 20px;
+    background-color: #ffffff; /* White background for the event row */
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0; /* Light gray border for the row */
+}
+
+/* Left part of event row */
+.event-left {
+    display: flex;
+    gap: 20px; /* Space between the details and graph */
+    align-items: flex-start; /* Align items at the top */
+    width: 100%; /* Full width of the column */
+}
+
+/* Details and Graph placeholders */
+.event-left-top,
+.event-left-bottom {
+    background-color: #f3e5f5; /* Light purple background for placeholders */
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #9c27b0; /* Purple border */
+    flex: 1; /* Ensure that the details and graph take up equal space */
+}
+
+/* Right part of event row */
+.event-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffccbc; /* Light orange background */
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #ffab91; /* Light orange border */
+}
