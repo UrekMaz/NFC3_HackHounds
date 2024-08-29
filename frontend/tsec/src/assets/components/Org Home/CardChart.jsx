@@ -21,13 +21,13 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 const ChartCard = ({ title, data, description, dataKey, fill }) => (
     <Card className="chart-card" variant="outlined" sx={{ borderRadius: '32px', borderWidth: '3px' }}>
         <CardContent>
-            <div className="chart-header">
+            <div className="chart-header text-xl font-semibold mb-4">
                 {title}
             </div>
-            <p className="chart-description" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+            <p className="chart-description mb-4 text-gray-700" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
                 {description}
             </p>
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={500}> {/* Increased height */}
                 <PieChart>
                     <Pie
                         data={data}
@@ -35,7 +35,7 @@ const ChartCard = ({ title, data, description, dataKey, fill }) => (
                         nameKey="state"
                         cx="50%"
                         cy="50%"
-                        outerRadius={100}
+                        outerRadius={150}
                         fill={fill}
                         labelLine={false}
                         label={renderCustomizedLabel}
@@ -44,9 +44,7 @@ const ChartCard = ({ title, data, description, dataKey, fill }) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
-                    {/* <div className="chart-footer"> */}
-                        <Legend layout="horizontal" align="center" wrapperStyle={{ marginTop: '20px' }} />
-                    {/* </div> */}
+                    <Legend layout="horizontal" align="center" wrapperStyle={{ marginTop: '20px' }} />
                     <Tooltip />
                 </PieChart>
             </ResponsiveContainer>

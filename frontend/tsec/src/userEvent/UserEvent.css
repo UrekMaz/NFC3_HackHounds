@@ -1,0 +1,207 @@
+.grid-container {
+    display: grid;
+    grid-template-rows: auto auto auto auto; /* Define rows for button, card, title, and event list */
+    gap: 20px; /* Space between the grid items */
+    width: 100%; /* Full width */
+    padding: 20px; /* Padding around the grid */
+    background-color: #f4f4f4; /* Light gray background for the entire container */
+  }
+  
+  .button-container,
+  .card-container,
+  .current-events {
+    text-align: center; /* Center align the text */
+  }
+  
+  /* Button styling */
+  .button-container button {
+    background-color: #FF9100; /* Orange color for the button */
+    border: none; /* Remove default border */
+    color: white; /* White text */
+    padding: 10px 20px; /* Adjust button padding */
+    font-size: 16px; /* Adjust button font size */
+    border-radius: 10px;
+  }
+  
+  .button-container button:hover {
+    background-color: #FF9100; /* Darker orange on hover */
+  }
+  
+  /* Card styling */
+  .card-container .card {
+    border: 2px solid #9c27b0; /* Purple border for the card */
+    padding: 10px; /* Adjust card padding */
+  }
+  
+  /* Current events title styling */
+  .current-events h2 {
+    color: #9c27b0; /* Purple color for the title */
+    margin-bottom: 10px; /* Adjust space below the title */
+  }
+  
+  /* Event list styling */
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Two cards per row */
+    gap: 20px; /* Space between each event card */
+  }
+  
+  /* Event card styling */
+  .event-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin: 20px;
+    width:400px;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f3e5f5;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .event-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .funding-status {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .event-body {
+    padding: 20px;
+  }
+
+  .event-details {
+    display: grid;
+    gap: 10px;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #555;
+  }
+  
+  .detail-item svg {
+    color: #9c27b0;
+  }
+  
+  .funding-chart {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .funding-label {
+    position: absolute;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .event-map {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+  
+  .leaflet-control-attribution {
+    display: none !important;
+  }
+  
+  @media (max-width: 768px) {
+    .event-list {
+      grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+  
+    .event-body {
+      flex-direction: column;
+    }
+  
+    .event-details {
+      grid-template-columns: 1fr;
+    }
+  
+    .funding-chart {
+      margin-top: 20px;
+      align-self: center;
+    }
+  }
+
+  .eve-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 20px;
+    height: 300px; /* Set the height of the card */
+    width:100%;
+  }
+  
+  .eve-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .eve-card-bg {
+    background-size: cover;
+    background-position: center;
+    height: 100%; /* Ensure the background covers the entire card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .eve-card-body {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .eve-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .eve-card-button {
+    background-color: #FF9100;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .eve-card-button:hover {
+    background-color: #7B2CBF;
+    color: white;
+  }

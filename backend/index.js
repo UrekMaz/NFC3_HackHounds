@@ -3,19 +3,26 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');  // Import multer for file uploads
+const bodyParser = require('body-parser');  // Import bodyParser for parsing requests
+const Razorpay = require('razorpay');
 
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-require('dotenv').config();
+const app = express();
+const port = process.env.PORT || 3000;
 
-
+// Import models
 const User = require('./models/User.js');
 const Event = require('./models/eventSchema.js');
 const Past = require('./models/PastEvents.js');
 
+
 const app = express();
 const port = process.env.PORT || 3000;
+
+const Community = require('./models/community.js');
+
+// Set up file upload limits
+
 const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // Limit file size to 50MB
 
 // Middleware to parse JSON bodies
@@ -23,21 +30,17 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Enable CORS for all origins
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:5173',
+}));
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({
-    credentials: true,
-    origin: process.env.ORIGIN || 'http://localhost:5173', // Replace with your frontend domain
-}));
-
-
-
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb.net/hack_02?retryWrites=true&w=majority&appName=Cluster0')
-
+mongoose.connect('mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb.net/hack_02?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => {
         console.log('Connected to MongoDB');
     })
@@ -45,8 +48,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://manual:nrtGC7D6tG2GjS
         console.error('Error connecting to MongoDB:', error);
     });
 
-
-// Routes
+// Define Routes
 
 // Add Event
 app.post('/addEvent', async (req, res) => {
@@ -66,7 +68,7 @@ app.post('/addEvent', async (req, res) => {
         // Respond with the newly created event
         res.json(newEvent);
     } catch (err) {
-        console.log(err);
+        console.error('Error adding event:', err);
         res.status(422).json(err); // Send an error response with a 422 status code
     }
 });
@@ -75,7 +77,6 @@ app.post('/addEvent', async (req, res) => {
 app.post('/authorize/login', async (req, res) => {
     const { userId, password } = req.body;
     
-
     try {
         const user = await User.findOne({ userId });
 
@@ -95,18 +96,50 @@ app.post('/authorize/login', async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+// Get Past Events
 app.get('/getPastEvents', async (req, res) => {
     try {
         const pastEvents = await Past.find({});
-        console.log("Reached Here");
-console.log(pastEvents);
         res.json(pastEvents);
     } catch (error) {
         console.error('Error fetching past events:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-// Route to handle sending email with attachment
+// Get Messages for an Event
+app.get('/getMessages', async (req, res) => {
+    const { eventId } = req.query;
+    console.log('Event ID:', eventId);
+    try {
+        const messages = await Community.find({ event_id: eventId });
+        res.json(messages);
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+
+    }
+});
+
+// Send Message
+app.post('/sendMessage', async (req, res) => {
+    const { userId, text, time, eventId } = req.body;
+    try {
+        const newMessage = await Community.create({
+            user_id: userId,
+            text,
+            time,
+            event_id: eventId
+        });
+        res.json(newMessage);
+    } catch (error) {
+        console.error('Error sending message:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Send Email with Attachment
 app.post('/sendEmailWithAttachment', upload.single('attachment'), (req, res) => {
     const { to, subject, html, user, pass } = req.body;
     const attachment = req.file; // Access the file uploaded through multer
@@ -120,60 +153,92 @@ app.post('/sendEmailWithAttachment', upload.single('attachment'), (req, res) => 
     console.log('Attachment received:', attachment.originalname);
     console.log('user:', user || process.env.USER);
     console.log('pass:', pass || process.env.PASS);
+});
+
+// Donation Schema
+const donationSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    amount: Number,
+    payment_id: String,
+});
+  
+const Donation = mongoose.model('Donation', donationSchema);
+
+// Razorpay Instance
+const razorpay = new Razorpay({
+    key_id: "rzp_test_TrzRx21MJ6LUPk",
+    key_secret: "UwctxLjbAG3ouKFj3dJs0CtS",
+});
+  
+// Donate Route
+app.post('/donate', async (req, res) => {
+    const { name, email, amount } = req.body;
+  
+    const options = {
+        amount: amount * 100, // Amount in paise
+        currency: 'INR',
+        receipt: 'receipt#1',
+        payment_capture: 1,
+    };
 
     try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: user || process.env.USER, // Use provided user or fallback to environment variable
-                pass: pass || process.env.PASS  // Use provided pass or fallback to environment variable
-            }
+        const response = await razorpay.orders.create(options);
+        const donation = new Donation({
+            name,
+            email,
+            amount,
+            payment_id: response.id,
         });
-
-        const attachments = [{
-            filename: attachment.originalname,
-            content: attachment.buffer,
-            contentType: attachment.mimetype
-        }];
-
-        const mailOptions = {
-            from: user || 'your-email@example.com',
-            to: to,
-            subject: subject,
-            html: html,
-            attachments: attachments
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log('Failed to send email:', error);
-                return res.status(500).send('Failed to send email');
-            }
-            console.log('Email sent:', info.response);
-            res.send('Email sent');
+  
+        await donation.save();
+  
+        res.json({
+            id: response.id,
+            currency: response.currency,
+            amount: response.amount,
         });
     } catch (error) {
-        console.log('Error processing attachment:', error);
-        res.status(500).send('Error processing attachment');
+        console.error('Error processing donation:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
 
+// Get Event Route
+app.get("/getEvent", async (req, res) => {
+
+    try {
+        const event = await Event.find({}); // Fetch all events
+        if (!event) return res.status(404).json({ message: 'Event not found' });
+        res.json(event);
+    } catch (err) {
+        console.error('Error fetching event:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Update Volunteer Count
+app.put('/updateVolunteerCount/:id', async (req, res) => {
+    const { id } = req.params;
+    const { vol } = req.body;
+  
+    try {
+        const event = await Event.findById(id);
+        if (event) {
+            event.vol = vol;
+            await event.save();
+            res.status(200).json({ success: true });
+        } else {
+            res.status(404).json({ message: 'Event not found' });
+        }
+    } catch (error) {
+        console.error('Error updating volunteer count:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 // Start server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-
-app.get("/getEvent",async(req,res)=>{
-    try {
-        // Fetch event data from the database
-        const event = await Event.find({}); // Adjust query as needed
-        if (!event) return res.status(404).send('Event not found');
-        res.json(event);
-    } catch (err) {
-        res.status(500).send('Server error');
-    }  
-})
-
-
 });

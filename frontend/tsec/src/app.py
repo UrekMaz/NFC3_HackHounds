@@ -3,8 +3,10 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics.pairwise import cosine_similarity
+
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 
 # Function to process and find top matches
 def find_top_matches(children_df, elderly_df, num_matches=5):
@@ -27,6 +29,7 @@ def find_top_matches(children_df, elderly_df, num_matches=5):
     # Find the top 5 matches for each child
     top_matches_indices = similarity_matrix.argsort(axis=1)[:, -num_matches:]
     top_matches_scores = np.take_along_axis(similarity_matrix, top_matches_indices, axis=1)
+
 
     return top_matches_indices, top_matches_scores, similarity_matrix
 
@@ -105,6 +108,13 @@ def display_elderly_charts(elderly_df):
 # Streamlit app
 st.title("Orphanage and Elderly Home Match Finder & Elderly Data Visualization")
 
+    return top_matches_indices, top_matches_scores
+
+
+# st.title("Orphanage and Elderly Home Match Finder")
+# st.write("Upload the CSV files and input the name of the child or elderly person to find the top 5 matches.")
+
+
 # Upload CSV files
 children_file = st.file_uploader("Upload Children CSV", type=["csv"])
 elderly_file = st.file_uploader("Upload Elderly CSV", type=["csv"])
@@ -116,7 +126,9 @@ if children_file and elderly_file:
     st.write("Children and Elderly data loaded successfully!")
 
     # Find top matches
+
     top_matches_indices, top_matches_scores, similarity_matrix = find_top_matches(children_df, elderly_df)
+
 
     # Get the name from user input
     name = st.text_input("Enter the name of the child or elderly person:")
@@ -140,7 +152,9 @@ if children_file and elderly_file:
                 score = children_similarity_scores[idx]
                 st.write(f"  Rank {rank + 1}: {child_name} with similarity score {score:.2f}")
         else:
-            st.write("Name not found in the datasets.")
 
     # Display charts for elderly data
     display_elderly_charts(elderly_df)
+
+            st.write("Name not found in the datasets.")
+

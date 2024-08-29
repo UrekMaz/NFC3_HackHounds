@@ -1,0 +1,90 @@
+/* Container styles */
+.chat-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+.chat-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ff9100;
+}
+.chat-container {
+    width: 100vh;
+    height: 100vh;
+    max-width: 100%;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #fff5e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Messages styling */
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    max-width: 90%;
+}
+
+.user-message {
+    background-color: #ffe5b4; /* Light orange background for user's messages */
+    align-self: flex-end;
+    text-align: right;
+}
+
+.other-message {
+    background-color: #e6e6fa; /* Purple background for other users' messages */
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* Input styles */
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #ff8c00; /* Orange color for send button */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #e67e00; /* Darker orange on hover */
+}
+.user-message{
+    margin-left: 220px;
+    width: 500px;
+}
