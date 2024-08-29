@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './assets/styles/login.css';
+import logo from './assets/images/logo.jpeg';
 
-function LabelInputRow({ label, inputType, inputId, placeholder, value, onChange }) {
-    return (
-        <div className="input-row">
-            <label htmlFor={inputId} className="input-label">
-                {label}
-            </label>
-            <input
-                type={inputType}
-                id={inputId}
-                className="input-field"
-                placeholder={placeholder}
-                aria-label={label}
-                value={value}
-                onChange={onChange}
-            />
-        </div>
-    );
-}
 
 function Login() {
+    const [activeTab, setActiveTab] = useState('user');
     const [idNumber, setIdNumber] = useState('');
     const [password, setPassword] = useState('');
 
@@ -39,49 +24,59 @@ function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        try {
-            const response = await axios.post('http://localhost:3000/authorize/login', {
-                userId: idNumber,
-                password,
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error('There was an error logging in the user!', error);
-            alert('Login failed. Please check your credentials and try again.');
-        }
+        // Handle login logic here
+        console.log('Login submitted for:', activeTab, 'with ID:', idNumber);
     };
 
     return (
-        <section className="login-section">
-            <header>
-                <h1 className="app-name">Login Component</h1>
-            </header>
-            <main className="login-main">
-                <h2 className="login-title">Login</h2>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <LabelInputRow
-                        label="Enter your ID number to login"
-                        inputType="text"
-                        inputId="userId"
-                        placeholder="12345678"
-                        value={idNumber}
-                        onChange={(e) => setIdNumber(e.target.value)}
-                    />
-                    <LabelInputRow
-                        label="Enter password"
-                        inputType="password"
-                        inputId="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button className="login-btn" type="submit">
-                        Login
+        <div className="login-container">
+            <div className="login-image">
+                {/* You can replace this with an actual image */}
+                <div className="image-placeholder"></div>
+            </div>
+            <div className="login-form-container">
+                <img src={logo} alt="Logo" className="logo" />
+                <h1 className="login-title">Welcome Back</h1>
+                <div className="login-tabs">
+                    <button
+                        className={`tab-btn ${activeTab === 'user' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('user')}
+                    >
+                        User
                     </button>
+                    <button
+                        className={`tab-btn ${activeTab === 'organization' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('organization')}
+                    >
+                        Organization
+                    </button>
+                </div>
+                <form className="login-form" onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label htmlFor="idNumber">ID Number</label>
+                        <input
+                            type="text"
+                            id="idNumber"
+                            value={idNumber}
+                            onChange={(e) => setIdNumber(e.target.value)}
+                            placeholder="Enter your ID number"
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                        />
+                    </div>
+                    <button type="submit" className="login-btn">Login</button>
                 </form>
-            </main>
-        </section>
+                <p className="forgot-password">Forgot password?</p>
+            </div>
+        </div>
     );
 }
 
