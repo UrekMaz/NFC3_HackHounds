@@ -6,15 +6,24 @@ import StatePieCharts from './Org Home/InstitutionNumberPieChart';
 import LineChart from './Org Home/LineChart';
 import './userHome.css';
 import Footer from './Footer';
+
+import EmailForm from './Mailer';
+import { useParams, useLocation } from 'react-router-dom';
+
 import Fund from "./Fund"
 import NavigateToHtml from './NavigateToHTML';
 
+
 const UserHome = () => {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const userId = params.get('userId');
+    console.log(userId);
     return (
         <LanguageProvider>
             <div>
-                {/* Header section */}
-                <Header />
+
+                <Header userId={userId} />
 
                 {/* Banner image */}
                 <div className='banner-image'>
@@ -92,7 +101,7 @@ const UserHome = () => {
 
 
 
-
+                {/* <EmailForm /> */}
                 {/* Footer section */}
                 <Footer />
             </div>

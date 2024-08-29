@@ -14,6 +14,9 @@ import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
 import Inventory from './assets/components/InventoryTable.jsx';
 import AddEvent from './assets/compo/AddEvent.jsx';
+
+import CommunityHomePage from './assets/components/CommunityHomePage.jsx'
+import ChatPage from './assets/components/ChatCommunity.jsx'
 import Streamlit from './Streamlit.jsx'
 import Volunteer from './volunteer/Volunteer.jsx'
 
@@ -37,6 +40,8 @@ function App() {
         <Route path="/analytics" element={<Streamlit/>}/>
         <Route path="/volunteer" element={<Volunteer/>}/>
 
+        <Route path="/community" element={<CommunityHomePage />} />
+        <Route path="/chatPage" element={<ChatPage />} />
 
       </Routes>
       </LanguageProvider>

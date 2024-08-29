@@ -36,9 +36,9 @@ function Login() {
       if (response.status === 200) {
         // Navigate based on the active tab
         if (activeTab === 'user') {
-          navigate('/user-home');
+          navigate('/user-home?userId=' + idNumber);
         } else {
-          navigate('/org-home');
+          navigate('/org-home?userId=' + idNumber);
         }
       } else {
         setErrorMessage('Invalid ID number or password. Please try again.');
