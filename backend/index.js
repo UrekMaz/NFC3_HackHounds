@@ -3,48 +3,29 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
+const app = express();
+const Razorpay = require("razorpay");
 
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-require('dotenv').config();
-
-
+// Import models
 const User = require('./models/User.js');
 const Event = require('./models/eventSchema.js');
-
-
-const app = express();
-const port = process.env.PORT || 3000;
-const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // Limit file size to 50MB
-
-// Middleware to parse JSON bodies
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-
-// Enable CORS for all origins
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-
 app.use(cors({
     credentials: true,
-    origin: process.env.ORIGIN || 'http://localhost:5173', // Replace with your frontend domain
+    origin: 'http://localhost:5173',
 }));
 
-
-
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb.net/hack_02?retryWrites=true&w=majority&appName=Cluster0')
-
+mongoose.connect('mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb.net/hack_02?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => {
         console.log('Connected to MongoDB');
     })
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error);
     });
-
 
 // Routes
 
@@ -75,7 +56,6 @@ app.post('/addEvent', async (req, res) => {
 app.post('/authorize/login', async (req, res) => {
     const { userId, password } = req.body;
     
-
     try {
         const user = await User.findOne({ userId });
 
@@ -96,63 +76,50 @@ app.post('/authorize/login', async (req, res) => {
     }
 });
 
-
-// Route to handle sending email with attachment
-app.post('/sendEmailWithAttachment', upload.single('attachment'), (req, res) => {
-    const { to, subject, html, user, pass } = req.body;
-    const attachment = req.file; // Access the file uploaded through multer
-
-    if (!to || !subject || !html || !attachment) {
-        return res.status(400).send('Missing required fields');
-    }
-
-    // Log the attachment to debug
-    attachment.originalname = 'certificate';
-    console.log('Attachment received:', attachment.originalname);
-    console.log('user:', user || process.env.USER);
-    console.log('pass:', pass || process.env.PASS);
-
+const donationSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    amount: Number,
+    payment_id: String,
+  });
+  
+  const Donation = mongoose.model('Donation', donationSchema);
+  
+  const razorpay = new Razorpay({
+    key_id: "rzp_test_TrzRx21MJ6LUPk",
+    key_secret: "UwctxLjbAG3ouKFj3dJs0CtS",
+  });
+  
+  app.post('/donate', async (req, res) => {
+    const { name, email, amount } = req.body;
+  
+    const options = {
+      amount: amount * 100, // Amount in paise
+      currency: 'INR',
+      receipt: 'receipt#1',
+      payment_capture: 1,
+    };
+  
     try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: user || process.env.USER, // Use provided user or fallback to environment variable
-                pass: pass || process.env.PASS  // Use provided pass or fallback to environment variable
-            }
-        });
-
-        const attachments = [{
-            filename: attachment.originalname,
-            content: attachment.buffer,
-            contentType: attachment.mimetype
-        }];
-
-        const mailOptions = {
-            from: user || 'your-email@example.com',
-            to: to,
-            subject: subject,
-            html: html,
-            attachments: attachments
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log('Failed to send email:', error);
-                return res.status(500).send('Failed to send email');
-            }
-            console.log('Email sent:', info.response);
-            res.send('Email sent');
-        });
+      const response = await razorpay.orders.create(options);
+      const donation = new Donation({
+        name,
+        email,
+        amount,
+        payment_id: response.id,
+      });
+  
+      await donation.save();
+  
+      res.json({
+        id: response.id,
+        currency: response.currency,
+        amount: response.amount,
+      });
     } catch (error) {
-        console.log('Error processing attachment:', error);
-        res.status(500).send('Error processing attachment');
+      res.status(500).send(error);
     }
-});
-
-// Start server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-
+  });
 app.get("/getEvent",async(req,res)=>{
     try {
         // Fetch event data from the database
@@ -163,6 +130,31 @@ app.get("/getEvent",async(req,res)=>{
         res.status(500).send('Server error');
     }  
 })
+app.put('/updateVolunteerCount/:id', async (req, res) => {
+    const { id } = req.params;
+    const { vol } = req.body;
+  
+    try {
+      const event = await Event.findById(id);
+      if (event) {
+        event.vol = vol;
+        await event.save();
+        res.status(200).json({ success: true });
+      } else {
+        res.status(404).json({ message: 'Event not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
 
-
+// Start server
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
+
+// Routes
+   
+
+  
+

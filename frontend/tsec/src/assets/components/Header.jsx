@@ -53,7 +53,7 @@ const Header = () => {
   };
 
   return (
-    <div className="appBar">
+    <div className="appBar py-7">
       {/* Logo and title */}
       <div className="logoContainer">
 
@@ -63,7 +63,7 @@ const Header = () => {
 
       <div className="buttons-container">
         {/* Navigation buttons */}
-        <button className="button" onClick={() => navigate('/')}>
+        <button className="button  " onClick={() => navigate('/')}>
           {displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}
         </button>
         <button className="button" onClick={() => navigate('/events')}>

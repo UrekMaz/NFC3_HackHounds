@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './CrowdFunding.css';
+import './CrowdFunding.css'; // Ensure this file contains only necessary custom styles
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Container, Box, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -14,9 +14,7 @@ const data = [
 ];
 
 const theme = createTheme({
-  typography: {
-    fontFamily: 'Poppins, Arial, sans-serif',
-  },
+  
 });
 
 const CrowdFundingChart = () => {
@@ -37,37 +35,35 @@ const CrowdFundingChart = () => {
     fetchTranslation();
   }, [language]);
 
-
-
-return (
-    <div className="container-graph">
-        <ThemeProvider theme={theme}>
-            <Container maxWidth="md" sx={{ mt: 4, margin: '5px', alignItems: 'center' }}>
-                <div className="heading">
-                    {translatedText}
-                </div>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <BarChart width={500} height={300} data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="quarter" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend layout="horizontal" verticalAlign="bottom" align="center" />
-                        <Bar dataKey="individuals" fill="#FF9800" radius={[15, 15, 0, 0]} />
-                        <Bar dataKey="companies" fill="#9C27B0" radius={[15, 15, 0, 0]} />
-                    </BarChart>
-                </Box>
-            </Container>
-        </ThemeProvider>
-        {/* Additional description about crowd funding */}
-        <div className="funding-description-container">
-            <p className="funding-description">
-                Our crowdfunding efforts have been crucial in gathering the funds needed to support these NGOs. 
-                We extend our heartfelt thanks to all our donors for their unwavering support and generous contributions to our cause.
-            </p>
-        </div>
+  return (
+    <div className="container-graph bg-transparent">
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="md" sx={{ mt: 4, margin: '5px', alignItems: 'center' }}>
+          <h2  className="text-3xl font-bold text-gray-600 mb-4">
+            {translatedText}
+          </h2>
+          <Box sx={{ display: 'flex', justifyContent: 'center', boxShadow: 3 }}>
+            <BarChart width={600} height={400} data={data} className="shadow-lg">
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="quarter" />
+              <YAxis />
+              <Tooltip />
+              <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+              <Bar dataKey="individuals" fill="#FF9800" radius={[15, 15, 0, 0]} />
+              <Bar dataKey="companies" fill="#9C27B0" radius={[15, 15, 0, 0]} />
+            </BarChart>
+          </Box>
+        </Container>
+      </ThemeProvider>
+      {/* Additional description about crowd funding */}
+      <div className="funding-description-container mt-4">
+        <p className="funding-description text-gray-700 text-center">
+          Our crowdfunding efforts have been crucial in gathering the funds needed to support these NGOs. 
+          We extend our heartfelt thanks to all our donors for their unwavering support and generous contributions to our cause.
+        </p>
+      </div>
     </div>
-);
+  );
 };
 
 export default CrowdFundingChart;
