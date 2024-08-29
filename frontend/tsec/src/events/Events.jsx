@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './Events.css'; // Importing the CSS file
 import FundPieChart from './PieChart';
+import Header from '../assets/components/Header';
 // Custom Card Component
 function CustomCard() {
   return (
@@ -29,7 +30,7 @@ function EventRow() {
           <p>Event Details</p>
         </div>
         <div className="event-left-bottom">
-          <p><FundPieChart crowdfund="100" fund="200"/></p>
+          <p></p>
         </div>
       </div>
       <div className="event-right">
@@ -42,6 +43,8 @@ function EventRow() {
 // Main Layout Component
 function TwoColumnGrid() {
   return (
+    <>
+    <Header/>
     <div className="grid-container">
       <div className="grid-item button-container">
         <Button variant="success">Add Event</Button>
@@ -59,6 +62,7 @@ function TwoColumnGrid() {
         {/* Add more <EventRow /> as needed */}
       </div>
     </div>
+    </>
   );
 }
 

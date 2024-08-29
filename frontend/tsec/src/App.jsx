@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './Login.jsx'
-
+import TwoColumnGrid from "./events/Events.jsx";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Login />} />
         
         <Route path="/org-home" element={<OrgHome />} />
-        
+        <Route path="/events" element={<TwoColumnGrid/>}/>
       </Routes>
     </Router>
   );
