@@ -1,0 +1,54 @@
+.footer {
+    background-color: #4b4b4b; /* Dark background for the footer */
+    color: #c8c8c8; /* White text color */
+    padding: 20px 0; /* Padding for top and bottom */
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+  
+  .footer-container {
+    display: flex; /* Flexbox to create a row layout */
+    justify-content: space-between; /* Space between each column */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    max-width: 1200px; /* Maximum width for the footer content */
+    margin: 0 auto; /* Center the footer content horizontally */
+    padding: 0 20px; /* Padding on left and right */
+  }
+  
+  .footer-column {
+    flex: 1; /* Flex grow to allow columns to grow equally */
+    min-width: 200px; /* Minimum width for each column */
+    margin-bottom: 20px; /* Margin for spacing at the bottom */
+    max-width: 250px;
+  }
+  
+  .footer-column h4 {
+    margin-bottom: 15px; /* Margin below the heading */
+    font-size: 18px; /* Font size for the heading */
+    font-weight: bold; /* Bold heading */
+  }
+  
+  .footer-column ul {
+    list-style: none; /* Remove default list style */
+    padding: 0; /* Remove padding */
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 10px; /* Margin below each list item */
+  }
+  
+  .footer-column ul li a {
+    color: #ffffff; /* White color for the links */
+    text-decoration: none; /* Remove underline from links */
+    transition: color 0.3s; /* Smooth transition for color change */
+  }
+  
+  .footer-column ul li a:hover {
+    color: #ff9100; /* Hover color for the links */
+  }
+  
+  .footer-bottom {
+    text-align: center; /* Center align the text */
+    margin-top: 20px; /* Margin above the copyright text */
+    font-size: 14px; /* Font size for the copyright text */
+  }
+  

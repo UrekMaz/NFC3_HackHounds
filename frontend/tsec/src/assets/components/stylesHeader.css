@@ -1,0 +1,70 @@
+.appBar {
+    background-color: #6b20ad;
+    padding: 20px 20px 20px 20px; /* Increased padding for more height */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; /* Set position to relative for proper dropdown positioning */
+    height: 40px; /* Increased height by 10px */
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.logo {
+    height: 150px;
+    /* margin-right: 10px; */
+}
+
+.title {
+    font-size: 18px;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #ffffff;
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-left: 200px; */
+}
+
+.button {
+    margin: 0 10px;
+    background-color: transparent;
+    border: none;
+    color: #ff9100;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 16px;
+}
+
+.menu {
+    position: absolute; /* Absolute positioning to position it based on the navbar */
+    top: 70px; /* Position it directly below the settings icon button */
+    right: 10px; /* Align it to the right below the settings icon */
+    background-color: #af6ee9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    z-index: 1000;
+    padding: 10px;
+}
+
+.menuItem {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #282828;
+}
+
+.iconButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: larger;
+}
