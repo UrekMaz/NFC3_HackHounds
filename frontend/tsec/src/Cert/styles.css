@@ -1,0 +1,165 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 50px;
+}
+
+h2 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+
+input[type=email], input[type=password], input[type=text], input[type=number], select {
+    padding: 12px;
+    margin: 10px;
+    font-size: 16px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+}
+
+input[type=file] {
+    padding: 12px;
+    margin: 10px;
+    font-size: 16px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    margin-right: 10px;
+    color: #ffffff;
+}
+
+select, input[type=number] {
+    width: 200px;
+}
+
+@media only screen and (max-width: 600px) {
+    label {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    select, input[type=number] {
+        width: 100%;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #1f1f1f;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: #bb86fc;
+    text-decoration: none;
+}
+
+div {
+    text-align: center;
+    margin: 20px;
+}
+
+/* Specific styles for manual input fields to ensure they are centered */
+#manualXInput, #manualYInput {
+    display: block;
+    margin: 10px auto;
+    width: 200px;
+}
+
+/* Styles for mail subject and editor to ensure they are consistent */
+#mailSubject, #editor {
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    /* width: calc(100% - 50px); */
+    width: 700px;
+}
+#editor {
+    height: 300px;
+    overflow-y: auto;
+    margin: 0 auto;
+}
+
+/* Additional styles for the content inside the editor to ensure consistency */
+#editor p {
+    margin: 5px 0;
+    color: #ffffff;
+}
+
+#editor strong {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+    #mailSubject, #editor {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.row > div {
+    flex: 1; /* Makes each div take up equal space */
+    margin-right: 0px; /* Adds spacing between the divs, adjust as needed */
+}
+
+.row > div:last-child {
+    margin-right: 0; /* Removes margin from the last div in each row */
+}
+#loadingBarContainer {
+    width: 100%;
+    background-color: #ddd;
+}
+
+#loadingBar {
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+#progressText {
+    text-align: center;
+}

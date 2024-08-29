@@ -1,0 +1,12 @@
+.line-chart-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    margin : 20px;
+}
+.line-chart-header{
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}

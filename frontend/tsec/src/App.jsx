@@ -17,7 +17,6 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/user-home" element={<UserHome />} />
         <Route path="/org-home" element={<OrgHome />} />
-        
       </Routes>
     </Router>
   );

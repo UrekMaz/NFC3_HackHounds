@@ -6,6 +6,7 @@
     justify-content: space-between;
     position: relative; /* Set position to relative for proper dropdown positioning */
     height: 40px; /* Increased height by 10px */
+    /* border-radius: 0 0 30px 30px; */
 }
 
 .logoContainer {
@@ -15,6 +16,7 @@
 }
 
 .logo {
+    margin-top: 30px;
     height: 150px;
     /* margin-right: 10px; */
 }
@@ -61,6 +63,10 @@
     color: #282828;
 }
 
+.menuItem:hover {
+    color: #ffffff;
+    /* padding: 10px; */
+}
 .iconButton {
     background-color: transparent;
     border: none;
@@ -68,3 +74,50 @@
     color: #ffffff;
     font-size: larger;
 }
+
+/* stylesHeader.css */
+
+.iconButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.3s ease; /* Add transition for smooth rotation */
+  }
+  
+  .iconButton.rotate {
+    transform: rotate(90deg); /* Rotate by 90 degrees */
+  }
+/* stylesHeader.css */
+
+.languageDropdown {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: #af6ee9;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .dropdownContent {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .languageRow {
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+  
+  .languageRow:hover {
+    background-color: #ff9100;;
+  }
+  
+  .languageIcon {
+    margin-right: 8px;
+  }
