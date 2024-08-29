@@ -29,52 +29,54 @@ function Login() {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-image">
-                {/* You can replace this with an actual image */}
-                <div className="image-placeholder"></div>
-            </div>
-            <div className="login-form-container">
-                <img src={logo} alt="Logo" className="logo" />
-                <h1 className="login-title">Welcome Back</h1>
-                <div className="login-tabs">
-                    <button
-                        className={`tab-btn ${activeTab === 'user' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('user')}
-                    >
-                        User
-                    </button>
-                    <button
-                        className={`tab-btn ${activeTab === 'organization' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('organization')}
-                    >
-                        Organization
-                    </button>
+        <div className="main-container">
+            <div className="login-container">
+                <div className="login-image">
+                    {/* You can replace this with an actual image */}
+                    <div className="image-placeholder"></div>
                 </div>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label htmlFor="idNumber">ID Number</label>
-                        <input
-                            type="text"
-                            id="idNumber"
-                            value={idNumber}
-                            onChange={(e) => setIdNumber(e.target.value)}
-                            placeholder="Enter your ID number"
-                        />
+                <div className="login-form-container">
+                    <img src={logo} alt="Logo" className="logo" />
+                    <h1 className="login-title">Welcome Back</h1>
+                    <div className="login-tabs">
+                        <button
+                            className={`tab-btn ${activeTab === 'user' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('user')}
+                        >
+                            User
+                        </button>
+                        <button
+                            className={`tab-btn ${activeTab === 'organization' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('organization')}
+                        >
+                            Organization
+                        </button>
                     </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter your password"
-                        />
-                    </div>
-                    <button type="submit" className="login-btn">Login</button>
-                </form>
-                <p className="forgot-password">Forgot password?</p>
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <label htmlFor="idNumber">ID Number</label>
+                            <input
+                                type="text"
+                                id="idNumber"
+                                value={idNumber}
+                                onChange={(e) => setIdNumber(e.target.value)}
+                                placeholder="Enter your ID number"
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                            />
+                        </div>
+                        <button type="submit" className="login-btn">Login</button>
+                    </form>
+                    <p className="forgot-password">Forgot password?</p>
+                </div>
             </div>
         </div>
     );
