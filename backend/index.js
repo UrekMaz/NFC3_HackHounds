@@ -24,10 +24,15 @@ mongoose.connect('mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb
         console.error('Error connecting to MongoDB:', error);
     });
 
+    
 
+    //createUser("maureen","234");
 
 app.post('/authorize/login', async (req, res) => {
+    console.log("check");
     const { userId, password } = req.body;
+    console.log(userId);
+    console.log(password);
 
     try {
         const user = await User.findOne({ userId });
@@ -37,8 +42,9 @@ app.post('/authorize/login', async (req, res) => {
         }
 
         const isMatch = await bcrypt.compare(password, user.passwordHash);
-
+        console.log("done");
         if (isMatch) {
+            console.log("done");
             return res.status(200).json({ message: 'Login successful' });
         } else {
             return res.status(400).json({ message: 'Invalid password' });
