@@ -13,7 +13,9 @@ import ReactDOM from 'react-dom/client';
 import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
 import Inventory from './assets/components/InventoryTable.jsx';
+import SuggestedEvents from './assets/components/SuggestedEvents.jsx';
 import AddEvent from './assets/compo/AddEvent.jsx';
+import Streamlit from './streamlit.jsx';
 
 import CommunityHomePage from './assets/components/CommunityHomePage.jsx'
 import ChatPage from './assets/components/ChatCommunity.jsx'
@@ -28,12 +30,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/user-home" element={<UserHome />} />
-
         <Route path='/org-home' element={<OrgHome />} />
         <Route path="/inventory" element={<Inventory/>}/>
-
-        <Route path="/inventory" element={<OrgHome />} />
- 
+        <Route path="/analytics" element={<Streamlit/>}/>
+        {/* <Route path="/inventory" element={<OrgHome />} /> */}
+        <Route path="/suggested-events" element={<SuggestedEvents />} />
         <Route path="/events" element={<TwoColumnGrid/>}/>
         <Route path="/userevent" element={<UserEvent/>}/>
         <Route path="/uploadevent" element={<AddEvent/>}/>

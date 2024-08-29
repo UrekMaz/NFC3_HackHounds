@@ -64,7 +64,11 @@ const Header = ({userId}) => {
       <div className="buttons-container">
         {/* Navigation buttons */}
 
+//         <button className="button" onClick={() => navigate('/user-home')}>
+
+
         <button className="button" onClick={() => navigate('/?userId=' + userId)}>
+
 
           {displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}
         </button>

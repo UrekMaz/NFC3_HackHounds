@@ -14,9 +14,15 @@ const port = process.env.PORT || 3000;
 const User = require('./models/User.js');
 const Event = require('./models/eventSchema.js');
 const Past = require('./models/PastEvents.js');
+
+
+const app = express();
+const port = process.env.PORT || 3000;
+
 const Community = require('./models/community.js');
 
 // Set up file upload limits
+
 const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // Limit file size to 50MB
 
 // Middleware to parse JSON bodies
@@ -112,6 +118,7 @@ app.get('/getMessages', async (req, res) => {
     } catch (error) {
         console.error('Error fetching messages:', error);
         return res.status(500).json({ message: 'Internal server error' });
+
     }
 });
 
@@ -197,8 +204,10 @@ app.post('/donate', async (req, res) => {
     }
 });
 
+
 // Get Event Route
 app.get("/getEvent", async (req, res) => {
+
     try {
         const event = await Event.find({}); // Fetch all events
         if (!event) return res.status(404).json({ message: 'Event not found' });
