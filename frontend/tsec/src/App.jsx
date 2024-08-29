@@ -6,8 +6,6 @@ import Login from './Login.jsx'
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Header from './assets/components/Header.jsx'
-import Footer from './assets/components/Footer.jsx'
 
 import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
@@ -17,8 +15,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/user-home" element={<UserHome />} />
+        
         <Route path="/org-home" element={<OrgHome />} />
+        
       </Routes>
     </Router>
   );
