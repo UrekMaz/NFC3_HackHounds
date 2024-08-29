@@ -77,7 +77,7 @@ app.post('/authorize/login', async (req, res) => {
 app.get("/getEvent",async(req,res)=>{
     try {
         // Fetch event data from the database
-        const event = await Event.findOne(); // Adjust query as needed
+        const event = await Event.find({}); // Adjust query as needed
         if (!event) return res.status(404).send('Event not found');
         res.json(event);
     } catch (err) {
