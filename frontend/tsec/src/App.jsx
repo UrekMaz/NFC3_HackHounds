@@ -5,6 +5,7 @@ import './App.css'
 import Login from './Login.jsx'
 import TwoColumnGrid from "./events/Events.jsx";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { LanguageProvider } from './LanguageContext';
 import ReactDOM from 'react-dom/client';
 
 
@@ -15,7 +16,9 @@ import AddEvent from './assets/compo/AddEvent.jsx';
 
 function App() {
   return (
+    
     <Router>
+      <LanguageProvider>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/user-home" element={<UserHome />} />
@@ -30,6 +33,7 @@ function App() {
 
 
       </Routes>
+      </LanguageProvider>
     </Router>
   );
 }

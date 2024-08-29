@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import './stylesHeader.css'; // Import the CSS file
 import { FaUser, FaSignOutAlt, FaGlobe, FaLanguage } from 'react-icons/fa';
 import { useLanguage } from '../../LanguageContext';
@@ -10,6 +10,7 @@ const Header = () => {
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false); // State to manage language dropdown menu
   const { language, changeLanguage } = useLanguage(); // Destructure language and changeLanguage from context
   const [isRotated, setIsRotated] = useState(false);
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleMenuOpen = (event) => {
     if (anchorEl) {
@@ -38,17 +39,16 @@ const Header = () => {
     handleLanguageDropdownClose(); // Close the dropdown after selection
   };
 
-  // Function to display buttons based on the current language
-  const displayButton = (textEn, textHi, textGu, textMr) => {
+  const displayButton = (en, hi, gu, mr) => {
     switch (language) {
       case 'hi':
-        return textHi;
+        return hi;
       case 'gu':
-        return textGu;
+        return gu;
       case 'mr':
-        return textMr;
+        return mr;
       default:
-        return textEn;
+        return en;
     }
   };
 
@@ -60,14 +60,21 @@ const Header = () => {
         <img src={logo} alt="Logo" className="logo" />
 
       </div>
-      
+
       <div className="buttons-container">
         {/* Navigation buttons */}
-
-        <button className="button">{displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}</button>
-        <button className="button">{displayButton('Events', 'घटनाएँ', 'ઇવેન્ટ્સ', 'कार्यक्रम')}</button>
-        <button className="button">{displayButton('Analytics', 'विश्लेषिकी', 'વિશ્લેષણ', 'विश्लेषण')}</button>
-        <button className="button">{displayButton('Inventory Management', 'सूची प्रबंधन', 'જથ્થો વ્યવસ્થાપન', 'साठा व्यवस्थापन')}</button>
+        <button className="button" onClick={() => navigate('/')}>
+          {displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}
+        </button>
+        <button className="button" onClick={() => navigate('/events')}>
+          {displayButton('Events', 'घटनाएँ', 'ઇવેન્ટ્સ', 'कार्यक्रम')}
+        </button>
+        <button className="button" onClick={() => navigate('/analytics')}>
+          {displayButton('Analytics', 'विश्लेषिकी', 'વિશ્લેષણ', 'विश्लेषण')}
+        </button>
+        <button className="button" onClick={() => navigate('/inventory')}>
+          {displayButton('Inventory Management', 'सूची प्रबंधन', 'જથ્થો વ્યવસ્થાપન', 'साठा व्यवस्थापन')}
+        </button>
 
       </div>
 
