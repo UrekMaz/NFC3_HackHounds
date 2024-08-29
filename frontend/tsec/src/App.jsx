@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
 
+
+import AddEvent from './compo/addEvent.jsx'
+
 import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
 import Inventory from './assets/components/InventoryTable.jsx';
@@ -19,8 +22,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/user-home" element={<UserHome />} />
+
         <Route path='/org-home' element={<OrgHome />} />
         <Route path="/inventory" element={<Inventory/>}/>
+
+        <Route path="/inventory" element={<OrgHome />} />
+
         <Route path="/events" element={<TwoColumnGrid/>}/>
         <Route path="/uploadevent" element={<AddEvent/>}/>
 
