@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Header from './Header';
+import Header from './HeaderUser';
 import Footer from './Footer';
 import CommunityEventCard from './CommunityEventCard';
 import './CommunityHomePage.css';

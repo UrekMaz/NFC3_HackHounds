@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios'; // Import axios
 import './UserEvent.css'; // Importing the CSS file
 // import FundPieChart from './PieChart';
-import Header from '../assets/components/Header';
+import Header from '../assets/components/HeaderUser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faMapMarkerAlt, faBullseye, faDollarSign, faUsers, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -189,9 +189,9 @@ function TwoColumnGrid() {
     <>
       <Header />
       <div className="grid-container">
-        <div className="grid-item button-container">
+        {/* <div className="grid-item button-container">
           <button className="button" onClick={handleAddEventClick}>Add Event</button>
-        </div>
+        </div> */}
         <div className="grid-item card-container">
           <CustomCard />
         </div>

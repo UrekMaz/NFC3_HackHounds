@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './stylesHeader.css'; // Import the CSS file
-import { FaUser, FaSignOutAlt, FaGlobe, FaLanguage } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaGlobe, FaLanguage, FaHome, FaUsers, FaCalendarAlt, FaCog } from 'react-icons/fa';
 import { useLanguage } from '../../LanguageContext';
 import logo from '../../../public/assets/images/no_bkg.png';
 
-const Header = ({userId}) => {
+const HeaderUser = ({ userId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false); // State to manage language dropdown menu
   const { language, changeLanguage } = useLanguage(); // Destructure language and changeLanguage from context
   const [isRotated, setIsRotated] = useState(false);
   const navigate = useNavigate(); // Initialize the navigate function
-  // const userId = useParams().userId; // Get the userId from the URL
+
   const handleMenuOpen = (event) => {
     if (anchorEl) {
       setAnchorEl(null);
@@ -56,34 +56,28 @@ const Header = ({userId}) => {
     <div className="appBar py-7">
       {/* Logo and title */}
       <div className="logoContainer">
-
         <img src={logo} alt="Logo" className="logo" />
-
       </div>
 
       <div className="buttons-container">
-        {/* Navigation buttons */}
-
-        <button className="button" onClick={() => navigate('/?userId=' + userId)}>
-
+        {/* Navigation buttons with icons */}
+        <button className="button" onClick={() => navigate('/user-home?userId=' + userId)}>
+          {/* <FaHome className="icon" /> */}
           {displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}
         </button>
-        <button className="button" onClick={() => navigate('/events?userId=' + userId)}>
+        <button className="button" onClick={() => navigate('/community?userId=' + userId)}>
+          {/* <FaUsers className="icon" /> */}
+          {displayButton('Community', 'समुदाय', 'સમુદાય', 'समुदाय')}
+        </button>
+        <button className="button" onClick={() => navigate('/userevent?userId=' + userId)}>
+          {/* <FaCalendarAlt className="icon" /> */}
           {displayButton('Events', 'घटनाएँ', 'ઇવેન્ટ્સ', 'कार्यक्रम')}
         </button>
-        <button className="button" onClick={() => navigate('/analytics?userId=' + userId)}>
-          {displayButton('Analytics', 'विश्लेषिकी', 'વિશ્લેષણ', 'विश्लेषण')}
-        </button>
-        {/* VENISHA ADD HERE */}
-        <button className="button" onClick={() => navigate('/?userId=' + userId)}>
-          {displayButton('Inventory Management', 'सूची प्रबंधन', 'જથ્થો વ્યવસ્થાપન', 'साठा व्यवस्थापन')}
-        </button>
-
       </div>
 
       {/* Settings icon button */}
       <button className="iconButton" onClick={handleMenuOpen}>
-        <span role="img" aria-label="settings">⚙️</span>
+        <FaCog className={`settings-icon ${isRotated ? 'rotated' : ''}`} />
       </button>
 
       {/* Dropdown menu */}
@@ -93,7 +87,7 @@ const Header = ({userId}) => {
             <FaUser style={{ marginRight: '8px' }} /> {displayButton('Profile', 'प्रोफ़ाइल', 'પ્રોફાઇલ', 'प्रोफाइल')}
           </div>
           <div className="menuItem" onClick={handleMenuClose}>
-            <FaSignOutAlt style={{ marginRight: '8px' }} /> {displayButton('Logout', 'लॉग आउट', 'લોગ આઉટ', 'बाहेर पडणे')}
+            <FaSignOutAlt style={{ marginRight: '8px' }} /><button onClick={() => navigate('/')}> {displayButton('Logout', 'लॉग आउट', 'લોગ આઉટ', 'बाहेर पडणे')}</button>
           </div>
           <div className="menuItem" onClick={handleLanguageDropdownOpen}>
             <FaGlobe style={{ marginRight: '8px' }} /> {displayButton('Language Change', 'भाषा बदलें', 'ભાષા બદલો', 'भाषा बदला')}
@@ -128,4 +122,4 @@ const Header = ({userId}) => {
   );
 };
 
-export default Header;
+export default HeaderUser;
