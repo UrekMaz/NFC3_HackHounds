@@ -72,10 +72,20 @@
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #9c27b0; /* Purple border */
-    flex: 1;
-    height:250px /* Ensure that the details and graph take up equal space */
+    flex: 1; /* Ensure that the details and graph take up equal space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
 }
 
+/* Ensure the chart fits properly */
+.event-left-bottom {
+    height: 250px; /* Set a fixed height to ensure consistent sizing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* Right part of event row */
 .event-right {
@@ -86,4 +96,6 @@
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ffab91; /* Light orange border */
+    text-align: center; /* Center align the text */
+    height: 250px;
 }
