@@ -63,7 +63,7 @@ const Header = () => {
 
       <div className="buttons-container">
         {/* Navigation buttons */}
-        <button className="button" onClick={() => navigate('/')}>
+        <button className="button" onClick={() => navigate('/user-home')}>
           {displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}
         </button>
         <button className="button" onClick={() => navigate('/events')}>
