@@ -3,12 +3,16 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
+
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 require('dotenv').config();
 
+
 const User = require('./models/User.js');
+const Event = require('./models/eventSchema.js');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,16 +23,21 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Enable CORS for all origins
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(cors({
     credentials: true,
     origin: process.env.ORIGIN || 'http://localhost:5173', // Replace with your frontend domain
 }));
 
-app.use(cookieParser());
-app.use(express.json());
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb.net/hack_02?retryWrites=true&w=majority&appName=Cluster0')
+
     .then(() => {
         console.log('Connected to MongoDB');
     })
@@ -36,14 +45,36 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://manual:nrtGC7D6tG2GjS
         console.error('Error connecting to MongoDB:', error);
     });
 
-// Root route for status check or welcome message
-app.get('/', (req, res) => {
-    res.send('Welcome to the E-Certificate Backend with Email Attachment ' + process.env.USER);
+
+// Routes
+
+// Add Event
+app.post('/addEvent', async (req, res) => {
+    const { ogName, loc, date, time, dur, fund, vol } = req.body;
+    
+    try {
+        const newEvent = await Event.create({
+            ogName,
+            loc,
+            date,
+            time,
+            dur,
+            fund,
+            vol
+        });
+        
+        // Respond with the newly created event
+        res.json(newEvent);
+    } catch (err) {
+        console.log(err);
+        res.status(422).json(err); // Send an error response with a 422 status code
+    }
 });
 
-// Route to handle user login
+// Login
 app.post('/authorize/login', async (req, res) => {
     const { userId, password } = req.body;
+    
 
     try {
         const user = await User.findOne({ userId });
@@ -64,6 +95,7 @@ app.post('/authorize/login', async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 // Route to handle sending email with attachment
 app.post('/sendEmailWithAttachment', upload.single('attachment'), (req, res) => {
@@ -120,4 +152,17 @@ app.post('/sendEmailWithAttachment', upload.single('attachment'), (req, res) => 
 // Start server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
+
+app.get("/getEvent",async(req,res)=>{
+    try {
+        // Fetch event data from the database
+        const event = await Event.find({}); // Adjust query as needed
+        if (!event) return res.status(404).send('Event not found');
+        res.json(event);
+    } catch (err) {
+        res.status(500).send('Server error');
+    }  
+})
+
+
 });

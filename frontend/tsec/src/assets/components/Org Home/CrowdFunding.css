@@ -2,9 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     height: 70vh;
     background-color: #eeaaf9;
     /* border-radius: 32px; */
+
 }
 
 .heading{

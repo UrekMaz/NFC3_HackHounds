@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './stylesHeader.css'; // Import the CSS file
 import { FaUser, FaSignOutAlt, FaGlobe, FaLanguage } from 'react-icons/fa';
 import { useLanguage } from '../../LanguageContext';
@@ -9,6 +10,7 @@ const Header = () => {
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false); // State to manage language dropdown menu
   const { language, changeLanguage } = useLanguage(); // Destructure language and changeLanguage from context
   const [isRotated, setIsRotated] = useState(false);
+
   const handleMenuOpen = (event) => {
     if (anchorEl) {
       setAnchorEl(null);
@@ -54,15 +56,19 @@ const Header = () => {
     <div className="appBar">
       {/* Logo and title */}
       <div className="logoContainer">
+
         <img src={logo} alt="Logo" className="logo" />
+
       </div>
       
       <div className="buttons-container">
         {/* Navigation buttons */}
+
         <button className="button">{displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}</button>
         <button className="button">{displayButton('Events', 'घटनाएँ', 'ઇવેન્ટ્સ', 'कार्यक्रम')}</button>
         <button className="button">{displayButton('Analytics', 'विश्लेषिकी', 'વિશ્લેષણ', 'विश्लेषण')}</button>
         <button className="button">{displayButton('Inventory Management', 'सूची प्रबंधन', 'જથ્થો વ્યવસ્થાપન', 'साठा व्यवस्थापन')}</button>
+
       </div>
 
       {/* Settings icon button */}

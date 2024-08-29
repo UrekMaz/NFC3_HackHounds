@@ -1,6 +1,6 @@
 import React from 'react';
 
-function UserHome() {
+function OrgHome() {
   return (
     <div>
       <h1>User Home</h1>
@@ -9,4 +9,5 @@ function UserHome() {
   );
 }
 
-export default UserHome;
+export default OrgHome;
+
