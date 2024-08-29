@@ -63,7 +63,7 @@ function Login() {
                     <LabelInputRow
                         label="Enter your ID number to login"
                         inputType="text"
-                        inputId="idNumber"
+                        inputId="userId"
                         placeholder="12345678"
                         value={idNumber}
                         onChange={(e) => setIdNumber(e.target.value)}
