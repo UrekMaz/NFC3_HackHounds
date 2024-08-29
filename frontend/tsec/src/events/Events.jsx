@@ -8,7 +8,7 @@ import FundPieChart from './PieChart';
 import Header from '../assets/components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faMapMarkerAlt, faBullseye, faDollarSign, faUsers, faChartLine } from '@fortawesome/free-solid-svg-icons';
-
+import AddEvent from '../assets/compo/AddEvent';
 
 // Custom Card Component
 function CustomCard() {
@@ -31,43 +31,43 @@ function EventRow({ event }) {
 
   return (
     <div className="event-card">
-    <div className="event-header">
-      <h3 className="event-title">{event.ogName}</h3>
-      <div className="funding-status">
-        {Math.round((fund / crowdfund) * 100)}% Funded
+      <div className="event-header">
+        <h3 className="event-title">{event.ogName}</h3>
+        <div className="funding-status">
+          {Math.round((fund / crowdfund) * 100)}% Funded
+        </div>
+      </div>
+      <div className="event-body">
+        <div className="event-details">
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faCalendarAlt} />
+            <span>{event.date}</span>
+          </div>
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faMapMarkerAlt} />
+            <span>{event.loc}</span>
+          </div>
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faBullseye} />
+            <span>Goal: ${event.fund}</span>
+          </div>
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faDollarSign} />
+            <span>Current Funding: ${event.fundCollect}</span>
+          </div>
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faUsers} />
+            <span>No of volunteers: {event.vol}</span>
+          </div>
+        </div>
+        <div className="funding-chart">
+          <FundPieChart crowdfund={crowdfund} fund={fund} />
+          <div className="funding-label">
+            {Math.round((fund / crowdfund) * 100)}%
+          </div>
+        </div>
       </div>
     </div>
-    <div className="event-body">
-      <div className="event-details">
-        <div className="detail-item">
-          <FontAwesomeIcon icon={faCalendarAlt} />
-          <span>{event.date}</span>
-        </div>
-        <div className="detail-item">
-          <FontAwesomeIcon icon={faMapMarkerAlt} />
-          <span>{event.loc}</span>
-        </div>
-        <div className="detail-item">
-          <FontAwesomeIcon icon={faBullseye} />
-          <span>Goal: ${event.fund}</span>
-        </div>
-        <div className="detail-item">
-          <FontAwesomeIcon icon={faDollarSign} />
-          <span>Current Funding: ${event.fundCollect}</span>
-        </div>
-        <div className="detail-item">
-          <FontAwesomeIcon icon={faUsers} />
-          <span>No of volunteers: {event.vol}</span>
-        </div>
-      </div>
-      <div className="funding-chart">
-        <FundPieChart crowdfund={crowdfund} fund={fund} />
-        <div className="funding-label">
-          {Math.round((fund / crowdfund) * 100)}%
-        </div>
-      </div>
-    </div>
-  </div>
   );
 }
 
@@ -77,6 +77,7 @@ function TwoColumnGrid() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('TwoColumnGrid component rendered'); // Add this line
     // Fetch event data from the server
     const fetchEvents = async () => {
       try {
@@ -88,6 +89,21 @@ function TwoColumnGrid() {
     };
 
     fetchEvents();
+
+    // Add event listener for "Enter" key press
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        console.log('Enter key pressed, navigating to /uploadevent');
+        navigate('/uploadevent');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const handleAddEventClick = () => {
@@ -100,10 +116,7 @@ function TwoColumnGrid() {
       <Header />
       <div className="grid-container">
         <div className="grid-item button-container">
-          {/* <button onClick={handleAddEventClick}>
-            Add Event
-          </button> */}
-          <button className="button" onClick={() => navigate('/uploadevent')}>Add Event</button>
+          <button className="button" onClick={handleAddEventClick}>Add Event</button>
         </div>
         <div className="grid-item card-container">
           <CustomCard />
