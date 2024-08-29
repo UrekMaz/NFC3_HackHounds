@@ -1,12 +1,15 @@
 import React from 'react';
-
-function UserHome() {
-  return (
-    <div>
-      <h1>User Home</h1>
-      <p>Welcome to the user home page!</p>
-    </div>
-  );
-}
+import Header from './Header';
+import CrowdFundingChart from './Org Home/CrowdFundingChart';
+import Footer from './Footer';
+const UserHome = () => {
+    return (
+        <div>
+            <Header/>
+            <CrowdFundingChart/>
+            <Footer/>
+        </div>
+    );
+};
 
 export default UserHome;
