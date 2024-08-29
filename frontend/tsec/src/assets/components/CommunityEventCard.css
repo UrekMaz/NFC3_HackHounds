@@ -1,0 +1,31 @@
+.event-card {
+    width: 500px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    background-color: #f9f9f9;
+    color: #4b0082; /* Purple color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+
+.event-name {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+    color: #ff0000; /* Purple color */
+}
+
+.event-detail {
+    font-size: 1em;
+    margin: 4px 0;
+    color: #000000; /* Purple color */
+}
+.chat:hover {
+    color: #6b20ad; /* Purple color */
+    cursor: pointer;
+}
+
+.event-detail .fa-icon {
+    margin-right: 8px;
+}

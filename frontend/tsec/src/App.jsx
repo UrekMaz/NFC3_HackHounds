@@ -13,7 +13,8 @@ import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
 import Inventory from './assets/components/InventoryTable.jsx';
 import AddEvent from './assets/compo/AddEvent.jsx';
-
+import CommunityHomePage from './assets/components/CommunityHomePage.jsx'
+import ChatPage from './assets/components/ChatCommunity.jsx'
 function App() {
   return (
     
@@ -31,6 +32,8 @@ function App() {
         <Route path="/events" element={<TwoColumnGrid/>}/>
         <Route path="/uploadevent" element={<AddEvent/>}/>
 
+        <Route path="/community" element={<CommunityHomePage />} />
+        <Route path="/chatPage" element={<ChatPage />} />
 
       </Routes>
       </LanguageProvider>
