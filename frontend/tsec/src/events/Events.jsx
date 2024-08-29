@@ -1,76 +1,109 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios'; // Import axios
 import './Events.css'; // Importing the CSS file
 import FundPieChart from './PieChart';
 import Header from '../assets/components/Header';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faMapMarkerAlt, faBullseye, faDollarSign, faUsers, faChartLine } from '@fortawesome/free-solid-svg-icons';
+
 
 // Custom Card Component
 function CustomCard() {
   return (
-    <Card style={{ width: '100%', border: '2px solid #007bff', borderRadius: '8px' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Story Telling</Card.Title>
-        <Card.Text>
-          Join us as we transform Central Park's forgotten playground into a vibrant hub of joy and laughter, where the community comes together to rebuild memories and create new ones.
-        </Card.Text>
-        <Button variant="primary">Suggested Event</Button>
-      </Card.Body>
+    <Card className="event-card">
+      <div className="event-card-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
+        <Card.Body className="event-card-body">
+          <Card.Title className="event-card-title">Story Telling</Card.Title>
+          <Button variant="primary" className="event-card-button">Suggested Event</Button>
+        </Card.Body>
+      </div>
     </Card>
   );
 }
 
-// Row Component for Events
-function EventRow() {
-  const crowdfund = 200;
-  const fund = 100;
+// EventRow Component
+function EventRow({ event }) {
+  const crowdfund = event.fund; // Adjust this if you have different data for crowdfund
+  const fund = event.fundCollect;
 
   return (
-    <div className="event-row">
-      <div className="event-left">
-        <div className="event-left-top">
-          <h4>Community Park Renovation</h4>
-          <p>
-            Date: September 15, 2024 <br />
-            Location: Central Park, New York <br />
-            Goal: $10,000 <br />
-            Current Funding: $3,000 <br />
-            Description: This event aims to renovate the playground area in Central Park.
-            Funds will be used to purchase new equipment, landscaping, and safety enhancements.
-          </p>
-        </div>
-        <div className="event-left-bottom">
-          <FundPieChart crowdfund={crowdfund} fund={fund} />
-        </div>
-      </div>
-      <div className="event-right">
-        <h4>Organizer Contact</h4>
-        <p>
-          John Doe <br />
-          Email: john.doe@example.com <br />
-          Phone: (123) 456-7890
-        </p>
-        <h4>Event Status</h4>
-        <p>50% Funded</p>
+    <div className="event-card">
+    <div className="event-header">
+      <h3 className="event-title">{event.ogName}</h3>
+      <div className="funding-status">
+        {Math.round((fund / crowdfund) * 100)}% Funded
       </div>
     </div>
+    <div className="event-body">
+      <div className="event-details">
+        <div className="detail-item">
+          <FontAwesomeIcon icon={faCalendarAlt} />
+          <span>{event.date}</span>
+        </div>
+        <div className="detail-item">
+          <FontAwesomeIcon icon={faMapMarkerAlt} />
+          <span>{event.loc}</span>
+        </div>
+        <div className="detail-item">
+          <FontAwesomeIcon icon={faBullseye} />
+          <span>Goal: ${event.fund}</span>
+        </div>
+        <div className="detail-item">
+          <FontAwesomeIcon icon={faDollarSign} />
+          <span>Current Funding: ${event.fundCollect}</span>
+        </div>
+        <div className="detail-item">
+          <FontAwesomeIcon icon={faUsers} />
+          <span>No of volunteers: {event.vol}</span>
+        </div>
+      </div>
+      <div className="funding-chart">
+        <FundPieChart crowdfund={crowdfund} fund={fund} />
+        <div className="funding-label">
+          {Math.round((fund / crowdfund) * 100)}%
+        </div>
+      </div>
+    </div>
+  </div>
   );
 }
 
 // Main Layout Component
 function TwoColumnGrid() {
+  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch event data from the server
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/getEvent');
+        setEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching event data:', error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const handleAddEventClick = () => {
+    console.log('Navigating to /uploadevent');
+    navigate('/uploadevent');
+  };
 
   return (
     <>
       <Header />
       <div className="grid-container">
         <div className="grid-item button-container">
-          <Button variant="success" onClick={() => navigate('/uploadevent')}>
+          {/* <button onClick={handleAddEventClick}>
             Add Event
-          </Button>
+          </button> */}
+          <button className="button" onClick={() => navigate('/uploadevent')}>Add Event</button>
         </div>
         <div className="grid-item card-container">
           <CustomCard />
@@ -79,14 +112,13 @@ function TwoColumnGrid() {
           <h2>CURRENT EVENTS</h2>
         </div>
         <div className="event-list">
-          <EventRow />
-          <EventRow />
-          <EventRow />
-          {/* Add more <EventRow /> as needed */}
+          {events.map((event) => (
+            <EventRow key={event._id} event={event} />
+          ))}
         </div>
       </div>
     </>
   );
 }
 
-export default TwoColumnGrid
+export default TwoColumnGrid;

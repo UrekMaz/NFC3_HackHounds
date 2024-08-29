@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './stylesHeader.css';  // Import the CSS file
 import { FaUser, FaSignOutAlt, FaGlobe } from 'react-icons/fa';
-// import logo from './logo.jpg';  // Import the image
+import { useNavigate } from 'react-router-dom';
+
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate(); // useNavigate hook for navigation
 
   const handleMenuOpen = (event) => {
     if(anchorEl) {
@@ -22,15 +24,14 @@ const Header = () => {
       {/* Logo and title */}
       <div className="logoContainer">
         <img src="../assets/images/no_bkg.png" alt="Logo" className="logo" />
-        {/* <div className="title">Care Connect</div> */}
       </div>
       
       <div className="buttons-container">
         {/* Navigation buttons */}
-        <button className="button">Home</button>
-        <button className="button">Events</button>
-        <button className="button">Analytics</button>
-        <button className="button">Inventory Management</button>
+        <button className="button" onClick={() => navigate('/')}>Home</button>
+        <button className="button" onClick={() => navigate('/events')}>Events</button>
+        <button className="button" onClick={() => navigate('/analytics')}>Analytics</button>
+        <button className="button" onClick={() => navigate('/inventory')}>Inventory Management</button>
       </div>
 
       {/* Settings icon button */}
