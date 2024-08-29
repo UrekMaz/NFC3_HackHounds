@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertiSend</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h2>Generate Certificates</h2>
+
+    <div class="row">
+        <div>
+            <label for="emailUser">Email:</label>
+            <a href="#" title="Leave blank for default mail id" style="text-decoration: none; font-size: 20px;">&#9432;</a>
+            <input type="email" id="emailUser" placeholder="Enter Email">
+        </div>
+        <div>
+            <label for="passApp">Passkey</label>
+            <a href="#" title="Leave blank for default mail id" style="text-decoration: none; font-size: 20px;">&#9432;</a>
+            <input type="password" id="passApp" placeholder="Enter Passkey">
+            <a href="https://www.youtube.com/watch?v=74QQfPrk4vE" title="Learn more about the passkey" style="text-decoration: none; font-size: 20px;">?</a>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <label for="alignX">Align X:</label>
+            <select id="alignX" onchange="toggleManualInput('alignX', 'manualXInput')">
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input type="number" id="manualXInput" placeholder="Manual X" style="display:none;">
+        </div>
+        <div>
+            <label for="alignY">Align Y:</label>
+            <select id="alignY" onchange="toggleManualInput('alignY', 'manualYInput')">
+                <option value="top">Top</option>
+                <option value="middle">Middle</option>
+                <option value="bottom">Bottom</option>
+                <option value="manual">Manual</option>
+            </select>
+            <input type="number" id="manualYInput" placeholder="Manual Y" style="display:none;">
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <label for="fontSize">Font Size:</label>
+            <input type="number" id="fontSize" placeholder="Enter Font Size">
+        </div>
+        <div>
+            <label for="fontType">Font Type:</label>
+            <select id="fontType">
+                <option value="Courier">Courier</option>
+                <option value="CourierBold">Courier Bold</option>
+                <option value="CourierBoldOblique">Courier Bold Oblique</option>
+                <option value="CourierOblique">Courier Oblique</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="HelveticaBold">Helvetica Bold</option>
+                <option value="HelveticaBoldOblique">Helvetica Bold Oblique</option>
+                <option value="HelveticaOblique">Helvetica Oblique</option>
+                <option value="Symbol">Symbol</option>
+                <option value="TimesRoman">Times Roman</option>
+                <option value="TimesRomanBold">Times Roman Bold</option>
+                <option value="TimesRomanBoldItalic">Times Roman Bold Italic</option>
+                <option value="TimesRomanItalic">Times Roman Italic</option>
+                <option value="ZapfDingbats">Zapf Dingbats</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <label for="mailSubject">Mail Subject:</label>
+        <a href="#" title="Use '{name}' in Subject or Body to replace it with the name specified in the CSV file and '{date}' to replace it with the current date." style="text-decoration: none; font-size: 20px;">&#9432;</a>
+        <br>
+        <input type="text" id="mailSubject" placeholder="Enter Mail Subject">
+    </div>
+    <div>
+        <label for="mailText">Mail Text:</label>
+        <a href="#" title="Use '{name}' in Subject or Body to replace it with the name specified in the CSV file and '{date}' to replace it with the current date." style="text-decoration: none; font-size: 20px;">&#9432;</a>
+        <div id="editor">
+            <p>Hello World!</p>
+            <p>Some initial <strong>bold</strong> text</p>
+            <p><br></p>
+        </div>
+    </div>
+    <label for="">PDF</label>
+    <input type="file" id="templateInput" accept=".pdf">
+    <label for="">CSV</label>
+    <a href="#" title="The csv file should have headers 'Name' & 'Email'" style="text-decoration: none; font-size: 20px;">&#9432;</a>
+    <input type="file" id="csvInput" accept=".csv"><br><br>
+    <button onclick="generateCertificates()">Generate</button>
+
+    <button onclick="navigateBack()">Back to React App</button>
+
+    <br>
+
+    <div id="loadingBarContainer" style="display: none;">
+        <div id="loadingBar" style="width: 0%;"></div>
+        <p id="progressText">0%</p>
+    </div>
+
+    <script src="certificate.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'  // Specify theme in configuration
+        });
+    </script>
+
+    <script>
+        function navigateBack() {
+            window.location.href = 'http://localhost:5173/user-home/';
+        }
+    </script>
+</body>
+
+</html>

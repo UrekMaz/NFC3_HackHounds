@@ -1,0 +1,59 @@
+/* Impact text container */
+.impact-text-container {
+    text-align: center;
+    margin: 40px 20px;
+}
+
+.impact-heading {
+    font-size: 32px;
+    color: #ff9100; /* Theme color */
+    margin-bottom: 15px;
+}
+
+.impact-text {
+    font-size: 18px;
+    color: #333; /* Darker color for readability */
+}
+
+/* Chart description container */
+.chart-description-container,
+.line-chart-description-container,
+.volunteer-description-container,
+.funding-description-container {
+    text-align: center;
+    margin: 30px 20px;
+}
+
+.funding-description-container {
+    margin-right: 60px;
+}
+.chart-description,
+.line-chart-description,
+.volunteer-description,
+.funding-description {
+    font-size: 16px;
+    color: #555; /* Slightly lighter color */
+}
+
+/* Additional sections */
+.additional-section {
+    text-align: center;
+    margin: 40px 20px;
+}
+
+.additional-heading {
+    font-size: 24px;
+    color: #ff9100; /* Theme color */
+    margin-bottom: 10px;
+}
+
+.additional-text {
+    font-size: 16px;
+    color: #333; /* Darker color for readability */
+    line-height: 1.6;
+}
+
+/* Graph section */
+.graph {
+    margin: 50px 0;
+}

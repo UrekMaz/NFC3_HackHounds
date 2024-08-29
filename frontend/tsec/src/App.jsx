@@ -28,6 +28,7 @@ function App() {
         <Route path="/events" element={<TwoColumnGrid/>}/>
         <Route path="/uploadevent" element={<AddEvent/>}/>
 
+
       </Routes>
     </Router>
   );
