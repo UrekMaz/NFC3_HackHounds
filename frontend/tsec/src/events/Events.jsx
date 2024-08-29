@@ -8,16 +8,26 @@ import FundPieChart from './PieChart';
 import Header from '../assets/components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faMapMarkerAlt, faBullseye, faDollarSign, faUsers, faChartLine } from '@fortawesome/free-solid-svg-icons';
-import AddEvent from '../assets/compo/AddEvent';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 // Custom Card Component
 function CustomCard() {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/suggested-events');
+  };
+
   return (
-    <Card className="event-card">
-      <div className="event-card-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
-        <Card.Body className="event-card-body">
-          <Card.Title className="event-card-title">Story Telling</Card.Title>
-          <Button variant="primary" className="event-card-button">Suggested Event</Button>
+    <Card className="event-card eve-card">
+      <div className="event-card-bg eve-card-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
+        <Card.Body className="event-card-body eve-card-body">
+          <Card.Title className="event-card-title eve-card-title">Story Telling</Card.Title>
+          <Button variant="primary" className="event-card-button eve-card-button" onClick={handleButtonClick}>
+            Suggested Event
+          </Button>
         </Card.Body>
       </div>
     </Card>
@@ -28,20 +38,46 @@ function CustomCard() {
 function EventRow({ event }) {
   const crowdfund = event.fund; // Adjust this if you have different data for crowdfund
   const fund = event.fundCollect;
+  const defaultPosition = [19.1197, 72.8468]; // Default to Andheri, Mumbai if location is not provided
+  const bandraPosition = [19.0600, 72.8365]; // Coordinates for Bandra, Mumbai
+
+  // Set position based on event.loc
+  const position = event.loc === "Bandra, Mumbai" ? bandraPosition : (event.location || defaultPosition);
+
+  // Fix for Leaflet marker icon issue
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  });
 
   return (
-    <div className="event-card">
-      <div className="event-header">
-        <h3 className="event-title">{event.ogName}</h3>
-        <div className="funding-status">
-          {Math.round((fund / crowdfund) * 100)}% Funded
-        </div>
+    <div className="event-card ">
+      <div className="event-map">
+        <MapContainer center={position} zoom={13} style={{ height: '300px', width: '100%' }}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Marker position={position}>
+            <Popup>
+              {event.loc}
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
       <div className="event-body">
+        <div className="event-header">
+          <h3 className="event-title">{event.ogName}</h3>
+          <div className="funding-status">
+            {Math.round((fund / crowdfund) * 100)}% Funded
+          </div>
+        </div>
         <div className="event-details">
           <div className="detail-item">
             <FontAwesomeIcon icon={faCalendarAlt} />
-            <span>{event.date}</span>
+            <span>{new Date(event.date).toLocaleDateString()}</span>
           </div>
           <div className="detail-item">
             <FontAwesomeIcon icon={faMapMarkerAlt} />
@@ -60,12 +96,12 @@ function EventRow({ event }) {
             <span>No of volunteers: {event.vol}</span>
           </div>
         </div>
-        <div className="funding-chart">
+        {/* <div className="funding-chart">
           <FundPieChart crowdfund={crowdfund} fund={fund} />
           <div className="funding-label">
             {Math.round((fund / crowdfund) * 100)}%
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -104,7 +140,7 @@ function TwoColumnGrid() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [navigate]);
 
   const handleAddEventClick = () => {
     console.log('Navigating to /uploadevent');

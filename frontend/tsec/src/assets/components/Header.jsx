@@ -53,7 +53,7 @@ const Header = ({userId}) => {
   };
 
   return (
-    <div className="appBar">
+    <div className="appBar py-7">
       {/* Logo and title */}
       <div className="logoContainer">
 
@@ -63,7 +63,9 @@ const Header = ({userId}) => {
 
       <div className="buttons-container">
         {/* Navigation buttons */}
+
         <button className="button" onClick={() => navigate('/?userId=' + userId)}>
+
           {displayButton('Home', 'मुख्य पृष्ठ', 'હોમ', 'मुख्यपृष्ठ')}
         </button>
         <button className="button" onClick={() => navigate('/events?userId=' + userId)}>
