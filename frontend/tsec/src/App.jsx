@@ -6,6 +6,7 @@ import Login from './Login.jsx'
 import TwoColumnGrid from "./events/Events.jsx";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LanguageProvider } from './LanguageContext';
+import UserEvent from './userEvent/UserEvent.jsx'
 import ReactDOM from 'react-dom/client';
 
 
@@ -13,6 +14,8 @@ import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
 import Inventory from './assets/components/InventoryTable.jsx';
 import AddEvent from './assets/compo/AddEvent.jsx';
+import Streamlit from './Streamlit.jsx'
+import Volunteer from './volunteer/Volunteer.jsx'
 
 function App() {
   return (
@@ -29,7 +32,10 @@ function App() {
         <Route path="/inventory" element={<OrgHome />} />
  
         <Route path="/events" element={<TwoColumnGrid/>}/>
+        <Route path="/userevent" element={<UserEvent/>}/>
         <Route path="/uploadevent" element={<AddEvent/>}/>
+        <Route path="/analytics" element={<Streamlit/>}/>
+        <Route path="/volunteer" element={<Volunteer/>}/>
 
 
       </Routes>
