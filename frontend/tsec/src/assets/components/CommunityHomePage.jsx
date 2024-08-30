@@ -7,6 +7,7 @@ import './CommunityHomePage.css';
 import { useLocation } from 'react-router-dom';
 import picture from '../../../public/assets/images/VenishaImage.jpg';
 import { FaCalendarAlt, FaInfoCircle, FaShareAlt, FaSmile } from 'react-icons/fa';
+import { Divider } from '@mui/material';
 
 const CommunityHomePage = () => {
     // State to store fetched events
@@ -38,16 +39,14 @@ const CommunityHomePage = () => {
             </div>
             
             {/* Image Section */}
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
                 <img 
                     src={picture} 
                     alt="Venisha" 
                     className="venisha-image" 
                     style={{ borderRadius: '30px', width: "400px", margin: '0 auto' }} 
                 />
-            </div>
-
-            {/* Description Section with Icons */}
+                            {/* Description Section with Icons */}
             <div className='community-description'>
                 <p >
                      Check out the latest community events happening near you!<br />
@@ -56,6 +55,10 @@ const CommunityHomePage = () => {
                      Feel the joy of positivity revolve around you!
                 </p>
             </div>
+                
+            </div>
+            <Divider />
+
 
             {/* Events List Section */}
             <div className='event-list'>

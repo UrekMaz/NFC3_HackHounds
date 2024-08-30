@@ -4,7 +4,7 @@
     justify-content: center;
     font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     color: #ff9100;;
 }
 .community-description{
@@ -12,9 +12,11 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 20px;
-    margin-left: 50px;
+    /* margin-left: 0px; */
+    margin-right: 80px;
+    font-family: "Poppins", sans-serif;
 }
 .event-list{
     display: flex;

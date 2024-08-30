@@ -1,5 +1,5 @@
 const translateText = async (text, targetLang) => {
-  const apiKey = 'sGLWqKv2tniwXaAYZxUncmwXRDwLflyD'; // Your API key
+  // const apiKey = '9vzcvkVOwRzE8mmhD9CzpN4B6EZsZE79'; // Your API key
   const myHeaders = new Headers();
   myHeaders.append('apikey', apiKey);
 
