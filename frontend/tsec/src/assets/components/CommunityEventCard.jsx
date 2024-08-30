@@ -11,12 +11,12 @@ const EventCard = ({ location, date, organization, eventName, time, eventId, use
     };
     return (
         <div className="event-card">
-            <h3 className="event-name">{eventName}</h3>
+            <h3 className="event-name font-bold">{eventName}</h3>
             <p className="event-detail"><FontAwesomeIcon icon={faMapMarkerAlt} /> {location}</p>
             <p className="event-detail"><FontAwesomeIcon icon={faCalendarAlt} /> {date}</p>
             <p className="event-detail"><FontAwesomeIcon icon={faBuilding} /> {organization}</p>
             <p className="event-detail"><FontAwesomeIcon icon={faClock} /> {time}</p>
-            <p className="event-detail chat" onClick={() => handleOnClick(eventId)}><FontAwesomeIcon icon={faComment} /> Tell us about what you think? </p>
+            <p className="event-detail chat bg-lpurple p-2 rounded text-white font-bold" onClick={() => handleOnClick(eventId)}><FontAwesomeIcon icon={faComment} /> Tell us about what you think? </p>
         </div>
     );
 };

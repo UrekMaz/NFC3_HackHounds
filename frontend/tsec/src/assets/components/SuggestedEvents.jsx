@@ -34,7 +34,9 @@ function SuggestedEvents() {
 
   return (
     <div>
+
       {userId !== "maureen" ? <Header userId={userId} /> : <HeaderUser />}
+
       <section className="mb-10">
         <hr className="mb-4" />
         <h2 className="text-2xl font-semibold mb-4 text-center">Past Successful Events</h2>

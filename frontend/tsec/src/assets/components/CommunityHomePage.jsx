@@ -8,6 +8,9 @@ import { useLocation } from 'react-router-dom';
 import picture from '../../../public/assets/images/VenishaImage.jpg';
 import { FaCalendarAlt, FaInfoCircle, FaShareAlt, FaSmile } from 'react-icons/fa';
 import { Divider } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faCalendarAlt, faBuilding, faClock, faComment } from '@fortawesome/free-solid-svg-icons';
+
 
 const CommunityHomePage = () => {
     // State to store fetched events
@@ -34,17 +37,19 @@ const CommunityHomePage = () => {
         <>
             <Header />
 
-            <div className='community-header'>
-                <h1>Community Events</h1>
+             <div className='community-header'>
+                <h1 className='py-4'>Community Events</h1>
             </div>
             
             {/* Image Section */}
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
+            <div className='bg-gray-100 py-7' style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
                 <img 
                     src={picture} 
                     alt="Venisha" 
                     className="venisha-image" 
+
                     style={{ borderRadius: '30px', width: "500px",height:"300px", margin: '0 auto' }} 
+
                 />
                             {/* Description Section with Icons */}
             <div className='community-description'>
@@ -79,6 +84,7 @@ const CommunityHomePage = () => {
                     <p>No events available at the moment.</p>
                 )}
             </div>
+            
             
             <Footer />
         </>
