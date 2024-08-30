@@ -4,6 +4,7 @@ import HeaderUser from './HeaderUser';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import './SuggestedEvents.css';
+import EmailForm from './Mailer';
 const suggestedEvents = [
     { id: 1, name: "City Marathon", description: "Based on the success of Charity Run 2023" },
     { id: 2, name: "Hunger Relief Campaign", description: "Similar to the successful Food Drive" },
@@ -33,7 +34,9 @@ function SuggestedEvents() {
 
   return (
     <div>
-      {userId === "maureen" ? <Header userId={userId} /> : <HeaderUser />}
+
+      {userId !== "maureen" ? <Header userId={userId} /> : <HeaderUser />}
+
       <section className="mb-10">
         <hr className="mb-4" />
         <h2 className="text-2xl font-semibold mb-4 text-center">Past Successful Events</h2>
@@ -47,7 +50,10 @@ function SuggestedEvents() {
                 <h3 className="text-lg mb-2">{event.ogName}</h3>
                 <p className="text-sm text-gray-600">Funds Raised: {event.fundCollect}</p>
                 <p className="text-sm text-gray-600">Volunteers: {event.vol}</p>
+                {userId !== "maureen" ? <EmailForm /> : null}
+               
               </div>
+              
             </div>
           ))}
         </div>
@@ -63,6 +69,7 @@ function SuggestedEvents() {
             </div>
           ))}
         </div>
+       
       </section>
     </div>
   );

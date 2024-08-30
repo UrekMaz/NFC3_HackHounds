@@ -47,7 +47,9 @@ const CommunityHomePage = () => {
                     src={picture} 
                     alt="Venisha" 
                     className="venisha-image" 
-                    style={{ borderRadius: '15px', width: "30%", margin: '0 auto' }} 
+
+                    style={{ borderRadius: '30px', width: "500px",height:"300px", margin: '0 auto' }} 
+
                 />
                             {/* Description Section with Icons */}
             <div className='community-description'>

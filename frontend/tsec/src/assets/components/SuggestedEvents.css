@@ -62,4 +62,17 @@
         background-color: #f3e8ff; /* Light purple color */
       }
   
+      /* SuggestedEvents.css */
+.generate-certificate-button {
+    background-color: #7b2cbf; /* Purple color */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem; /* Rounded corners */
+    transition: background-color 0.3s ease;
+    margin-bottom : 20px;
+  }
+  
+  .generate-certificate-button:hover {
+    background-color: #5a1e8a; /* Darker purple on hover */
+  }
 
