@@ -1,0 +1,20 @@
+/* HorizontalTimeline.css */
+.MuiTimelineItem-root {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .MuiTimelineContent-root {
+    white-space: nowrap;
+    text-align: center;
+    padding: 0 16px;
+  }
+  
+  .MuiTimelineDot-root {
+    margin: 0;
+  }
+  
+  .MuiTimelineConnector-root {
+    display: none;
+  }
+  

@@ -170,3 +170,69 @@
 .resource-card p {
     margin: 5px 0;
 }
+
+.requests-section {
+    padding: 20px;
+}
+
+.requests-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.request-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.request-card p {
+    margin: 10px 0;
+}
+
+.request-card p strong {
+    display: inline-block;
+    width: 100px;
+}
+.main-requests{
+    display: flex;
+    flex-direction: row;
+}
+.request-card.canceled {
+    border: 2px solid red;
+}
+
+.request-card {
+    /* Base styles for request card */
+    padding: 16px;
+    /* margin: 8px; */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.request-card.accepted {
+    background-color: #00f038; /* Greenish color for accepted requests */
+}
+
+.cancel-request-button, .accept-request-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.accept-request-button {
+    background-color: #28a745; /* Green color */
+    color: #fff;
+}
+
+.cancel-request-button {
+    background-color: #dc3545; /* Red color */
+    color: #fff;
+}
