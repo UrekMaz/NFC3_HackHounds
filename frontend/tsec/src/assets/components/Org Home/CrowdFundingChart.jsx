@@ -14,21 +14,26 @@ const data = [
 ];
 
 const theme = createTheme({
-  
+  // Add your theme customization here if needed
 });
 
 const CrowdFundingChart = () => {
   const { language } = useLanguage();
   const [translatedText, setTranslatedText] = useState('Crowd Funding');
+  const [description, setDescription] = useState('Our crowdfunding efforts have been crucial in gathering the funds needed to support these NGOs. We extend our heartfelt thanks to all our donors for their unwavering support and generous contributions to our cause.');
 
   useEffect(() => {
     const fetchTranslation = async () => {
       if (language !== 'en') {
-        const translation = await translateText('Crowd Funding', language);
-        setTranslatedText(translation);
-        console.log(translation);
+        const [translatedTitle, translatedDescription] = await Promise.all([
+          translateText('Crowd Funding', language),
+          translateText('Our crowdfunding efforts have been crucial in gathering the funds needed to support these NGOs. We extend our heartfelt thanks to all our donors for their unwavering support and generous contributions to our cause.', language)
+        ]);
+        setTranslatedText(translatedTitle);
+        setDescription(translatedDescription);
       } else {
         setTranslatedText('Crowd Funding');
+        setDescription('Our crowdfunding efforts have been crucial in gathering the funds needed to support these NGOs. We extend our heartfelt thanks to all our donors for their unwavering support and generous contributions to our cause.');
       }
     };
 
@@ -39,7 +44,7 @@ const CrowdFundingChart = () => {
     <div className="container-graph bg-transparent">
       <ThemeProvider theme={theme}>
         <Container maxWidth="md" sx={{ mt: 4, margin: '5px', alignItems: 'center' }}>
-          <h2  className="text-3xl font-bold text-gray-600 mb-4">
+          <h2 className="text-3xl font-bold text-gray-600 mb-4">
             {translatedText}
           </h2>
           <Box sx={{ display: 'flex', justifyContent: 'center', boxShadow: 3 }}>
@@ -58,8 +63,7 @@ const CrowdFundingChart = () => {
       {/* Additional description about crowd funding */}
       <div className="funding-description-container mt-4">
         <p className="funding-description text-gray-700 text-center">
-          Our crowdfunding efforts have been crucial in gathering the funds needed to support these NGOs. 
-          We extend our heartfelt thanks to all our donors for their unwavering support and generous contributions to our cause.
+          {description}
         </p>
       </div>
     </div>
