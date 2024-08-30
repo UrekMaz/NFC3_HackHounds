@@ -234,6 +234,34 @@ app.put('/updateVolunteerCount/:id', async (req, res) => {
     }
 });
 
+app.post('/resource_requests', async (req, res) => {
+    const { resource, organization, quantity, dueDate } = req.body;
+    console.log(req.body)
+    try {
+        // Create a new request
+        const newRequest = new Request({
+            prod: resource,             // Correct field name mapping
+            to: organization,           // Correct field name mapping
+            quan: quantity,             // Correct field name mapping
+            estimate_time: dueDate      // Correct field name mapping
+        });
+
+        // Save the request to the database
+        await newRequest.save();
+
+        res.status(201).json({
+            message: 'Resource request submitted successfully',
+            resource,
+            organization,
+            quantity,
+            dueDate
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(422).json({ error: 'Failed to submit request', details: err.message });
+    }
+});
+
 // Start server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

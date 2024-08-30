@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import '../../assets/styles/inventorymanagement.css';
 import Header from './Header';
-
+import axios from 'axios'
 const InventoryTable = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
+    const [filterOrganization, setFilterOrganization] = useState('');
     const [inventory, setInventory] = useState([
-        { name: 'Bed', category: 'Category 1', stock: 10, threshold: 15, imageUrl:"https://images.cnbctv18.com/wp-content/uploads/2020/08/2020-08-13T033419Z_1_LYNXNPEG7C05J_RTROPTP_4_HEALTH-CORONAVIRUS-INDIA-DOCTOR-768x536.jpg"},
-        { name: 'Item 2', category: 'Category 2', stock: 5, threshold: 5 },
-        { name: 'Item 3', category: 'Category 3', stock: 2, threshold: 10 },
+        { name: 'Item 1', organization: 'Abhyudaya', category: 'Category 1', stock: 10, threshold: 15 },
+        { name: 'Item 2', organization: 'Nani Pari', category: 'Category 2', stock: 5, threshold: 5 },
+        { name: 'Item 3', organization: 'Apnalaya', category: 'Category 3', stock: 2, threshold: 10 },
         // Add more items as needed
     ]);
     const [notifications, setNotifications] = useState([]);
@@ -16,7 +17,21 @@ const InventoryTable = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [reorderQuantity, setReorderQuantity] = useState(0);
     const [decreaseQuantity, setDecreaseQuantity] = useState(0);
-    const [modalType, setModalType] = useState(''); // 'reorder' or 'decrease'
+    const [modalType, setModalType] = useState('');
+    const [showResourceModal, setShowResourceModal] = useState(false);
+    const [selectedResource, setSelectedResource] = useState(null);
+    const [requestQuantity, setRequestQuantity] = useState(0);
+    const [dueDate, setDueDate] = useState('');
+
+    const [resources, setResources] = useState([
+        { organization: 'Abhyudaya', resource: 'Beds', available: 15 },
+        { organization: 'Nani Pari', resource: 'Tables', available: 8 },
+        { organization: 'Apnalaya', resource: 'Chairs', available: 25 },
+        { organization: 'Abhyudaya', resource: 'Wardrobes', available: 5 },
+        { organization: 'Nani Pari', resource: 'Kitchen Appliances', available: 12 },
+        { organization: 'Apnalaya', resource: 'Computers', available: 3 },
+        // Add more resources as needed
+    ]);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -24,6 +39,10 @@ const InventoryTable = () => {
 
     const handleFilterChange = (e) => {
         setFilterStatus(e.target.value);
+    };
+
+    const handleOrganizationChange = (e) => {
+        setFilterOrganization(e.target.value);
     };
 
     const handleReorder = (item) => {
@@ -44,10 +63,23 @@ const InventoryTable = () => {
         }
     };
 
+    const handleRequestResource = (resource) => {
+        setSelectedResource(resource);
+        setRequestQuantity(0);
+        setDueDate('');
+        setModalType('request');
+        setShowResourceModal(true);
+    };
+
     const handleCloseModal = () => {
         setShowModal(false);
         setSelectedItem(null);
         setModalType('');
+    };
+
+    const handleCloseResourceModal = () => {
+        setShowResourceModal(false);
+        setSelectedResource(null);
     };
 
     const handleConfirmReorder = () => {
@@ -93,88 +125,99 @@ const InventoryTable = () => {
         setInventory(updatedInventory);
     };
 
+    const handleSubmitRequest = () => {
+        // Implement the request functionality here
+        alert(`Request for ${selectedResource.resource} with quantity ${requestQuantity} and due date ${dueDate} submitted.`);
+        handleCloseResourceModal();
+    };
+
     const filteredInventory = inventory.filter((item) => {
         return (
             item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
             (filterStatus === '' ||
                 (filterStatus === 'below' && item.stock < item.threshold) ||
                 (filterStatus === 'in-stock' && item.stock >= item.threshold) ||
-                (filterStatus === 'out-of-stock' && item.stock === 0))
+                (filterStatus === 'out-of-stock' && item.stock === 0)) &&
+            (filterOrganization === '' || item.organization === filterOrganization)
         );
     });
+
+    const filteredResources = resources.filter((resource) => {
+        return (
+            (filterOrganization === '' || resource.organization === filterOrganization)
+        );
+    });
+    const handle = async () => {
+        if (selectedResource && requestQuantity > 0 && dueDate) {
+            try {
+                await axios.post('http://localhost:3000/resource_requests', {
+                    resource: selectedResource.resource,
+                    organization: selectedResource.organization,
+                    quantity: requestQuantity,
+                    dueDate: dueDate
+                });
+    
+                alert('Request submitted successfully!');
+                handleCloseResourceModal();
+            } catch (error) {
+                console.error('Error submitting request:', error.response ? error.response.data : error.message);
+                alert('Failed to submit request. Please try again.');
+            }
+        } else {
+            alert('Please fill in all fields.');
+        }
+    };
+    
+    
 
     return (
         <>
             <Header />
             <div className="inventory-management">
                 <div className="inventory-overview">
-                    <div className="search-filter px-10 py-3">
+                    <div className="search-filter">
                         <input
                             type="text"
                             placeholder="Search items..."
                             value={searchTerm}
                             onChange={handleSearchChange}
-                            className="search-bar px-5"
+                            className="search-bar"
                         />
                         <select value={filterStatus} onChange={handleFilterChange} className="filter-dropdown">
                             <option value="">All</option>
                             <option value="below">Below Threshold</option>
                             <option value="in-stock">In Stock</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                        </select>
+                        <select value={filterOrganization} onChange={handleOrganizationChange} className="filter-dropdown">
+                            <option value="">All Organizations</option>
+                            <option value="Abhyudaya">Abhyudaya</option>
+                            <option value="Nani Pari">Nani Pari</option>
+                            <option value="Apnalaya">Apnalaya</option>
                         </select>
                     </div>
 
                     <div className="inventory-cards">
-    {filteredInventory.map((item, index) => (
-        <div
-            key={index}
-            className={`flex items-center justify-between bg-white border rounded-lg p-5 m-7 shadow-md transform transition-transform ${
-                item.stock < item.threshold ? 'bg-red-100 border-red-400' : ''
-            }`}
-        >
-            <div className="flex-1 mr-5">
-                <h3 className="text-xl font-semibold mb-3">{item.name}</h3>
-                <p className="text-gray-700 mb-2">Category: {item.category}</p>
-                <p className="text-gray-700 mb-2">Current Stock: {item.stock}</p>
-                <input
-                    type="number"
-                    value={item.threshold}
-                    onChange={(e) => handleSetThreshold(item, e.target.value)}
-                    className="threshold-input border border-gray-300 rounded-md p-2 w-full mb-2"
-                />
-                <p
-                    className={`${
-                        item.stock < item.threshold ? 'text-red-500' : 'text-green-500'
-                    } font-semibold`}
-                >
-                    Status: {item.stock < item.threshold ? 'Below Threshold' : 'Sufficient'}
-                </p>
-                <div className="actions flex space-x-4 mt-3">
-                    <button
-                        onClick={() => handleDecreaseStock(item)}
-                        className="decrease-button bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600"
-                    >
-                        Decrease Stock
-                    </button>
-                    <button
-                        onClick={() => handleReorder(item)}
-                        className="reorder-button bg-purple-700 text-white py-2 px-4 rounded-md hover:bg-purple-800"
-                    >
-                        Reorder
-                    </button>
-                </div>
-            </div>
-            <div className="w-100 h-60 overflow-hidden rounded-lg bg-gray-100">
-                <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                />
-            </div>
-        </div>
-    ))}
-</div>
-
-
+                        {filteredInventory.map((item, index) => (
+                            <div key={index} className={`inventory-card ${item.stock < item.threshold ? 'below-threshold' : ''}`}>
+                                <h3>{item.name}</h3>
+                                <p>Organization: {item.organization}</p>
+                                <p>Category: {item.category}</p>
+                                <p>Current Stock: {item.stock}</p>
+                                <input
+                                    type="number"
+                                    value={item.threshold}
+                                    onChange={(e) => handleSetThreshold(item, e.target.value)}
+                                    className="threshold-input"
+                                />
+                                <p>Status: {item.stock < item.threshold ? 'Below Threshold' : 'Sufficient'}</p>
+                                <div className="actions">
+                                    <button onClick={() => handleDecreaseStock(item)} className="decrease-button">Decrease Stock</button>
+                                    <button onClick={() => handleReorder(item)} className="reorder-button">Reorder</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {notifications.length > 0 && (
@@ -205,6 +248,46 @@ const InventoryTable = () => {
                                 {modalType === 'reorder' ? 'Place Order' : 'Confirm'}
                             </button>
                             <button onClick={handleCloseModal} className="modal-button cancel">Cancel</button>
+                        </div>
+                    </div>
+                )}
+
+                <div className="resource-cards">
+                    {filteredResources.map((resource, index) => (
+                        <div key={index} className="resource-card">
+                            <h3>{resource.resource}</h3>
+                            <p>Organization: {resource.organization}</p>
+                            <p>Available: {resource.available}</p>
+                            <div className="actions">
+                                <button onClick={() => handleRequestResource(resource)} className="view-details-button">Request</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {showResourceModal && selectedResource && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <h2>Request Resource</h2>
+                            <p>Resource: {selectedResource.resource}</p>
+                            <p>Organization: {selectedResource.organization}</p>
+                            <p>Available: {selectedResource.available}</p>
+                            <input
+                                type="number"
+                                placeholder="Quantity"
+                                value={requestQuantity}
+                                onChange={(e) => setRequestQuantity(e.target.value)}
+                                className="modal-input"
+                            />
+                            <input
+                                type="date"
+                                placeholder="Due Date"
+                                value={dueDate}
+                                onChange={(e) => setDueDate(e.target.value)}
+                                className="modal-input"
+                            />
+                            <button onClick={handle} className="modal-button">Submit Request</button>
+                            <button onClick={handleCloseResourceModal} className="modal-button cancel">Cancel</button>
                         </div>
                     </div>
                 )}

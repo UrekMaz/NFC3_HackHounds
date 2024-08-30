@@ -57,3 +57,25 @@
 .graph {
     margin: 50px 0;
 }
+.floating-chat-button {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background-color: #7B2CBF;
+
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.floating-chat-button:hover {
+    background-color: #7B2CBF ;
+}

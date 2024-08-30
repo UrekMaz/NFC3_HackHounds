@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import HeaderUser from './HeaderUser';
 import CrowdFundingChart from './Org Home/CrowdFundingChart';
 import { LanguageProvider } from '../../LanguageContext';
@@ -6,6 +6,8 @@ import StatePieCharts from './Org Home/InstitutionNumberPieChart';
 import LineChart from './Org Home/LineChart';
 import './userHome.css';
 import Footer from './Footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
 
 import EmailForm from './Mailer';
 import { useParams, useLocation } from 'react-router-dom';
@@ -19,6 +21,11 @@ const UserHome = () => {
     const params = new URLSearchParams(location.search);
     const userId = params.get('userId');
     console.log(userId);
+    const fundRef = useRef(null);
+
+    const scrollToFund = () => {
+        fundRef.current.scrollIntoView({ behavior: 'smooth' });
+    };
     return (
         <LanguageProvider>
             <div>
@@ -43,10 +50,6 @@ const UserHome = () => {
                         to bring about positive change and provide essential services to those in need.
                     </p>
                 </div>
-
-
-
-
 
                 {/* Pie charts section */}
                 <div className="my-8">
@@ -95,14 +98,38 @@ const UserHome = () => {
                 <div className="my-8">
                     <CrowdFundingChart />
                 </div>
-                <div className="my-8">
+                <div className="my-8" ref={fundRef}>
                     <Fund />
                 </div>
-
-
+                 {/* Floating Chat Button */}
+                 <button className="floating-chat-button">
+                    <FontAwesomeIcon icon={faComments} />
+                </button>
 
                 {/* <EmailForm /> */}
                 {/* Footer section */}
+                  {/* Floating donation button */}
+            <button 
+                onClick={scrollToFund} 
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    backgroundColor: '#ff9100',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '60px',
+                    height: '60px',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+                }}
+                aria-label="Donate"
+            >
+                💰
+            </button>
+
                 <Footer />
             </div>
         </LanguageProvider>
