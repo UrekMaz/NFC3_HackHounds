@@ -261,32 +261,8 @@ app.post('/resource_requests', async (req, res) => {
         res.status(422).json({ error: 'Failed to submit request', details: err.message });
     }
 });
-const createUser = async (userId, password) => {
-    try {
-        // Check if the user already exists
-        const existingUser = await User.findOne({ userId });
-        if (existingUser) {
-            throw new Error('User already exists');
-        }
 
-        // Hash the password
-        const passwordHash = await bcrypt.hash(password, 10);
 
-        // Create and save the new user
-        const newUser = new User({
-            userId,
-            passwordHash,
-        });
-
-        await newUser.save();
-        console.log('User created successfully:', newUser);
-    } catch (error) {
-        console.error('Error creating user:', error.message);
-    }
-};
-// Start server
-createUser('Abhyudaya','abc');
-createUser('Nani Pari','123');
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
