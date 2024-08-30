@@ -113,8 +113,8 @@ const UserHome = () => {
                 onClick={scrollToFund} 
                 style={{
                     position: 'fixed',
-                    bottom: '20px',
-                    right: '20px',
+                    bottom: '90px',
+                    right: '30px',
                     backgroundColor: '#ff9100',
                     color: 'white',
                     border: 'none',
