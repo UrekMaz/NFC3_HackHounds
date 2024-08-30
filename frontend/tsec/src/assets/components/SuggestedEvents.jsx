@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import HeaderUser from './HeaderUser';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import './SuggestedEvents.css';
 const suggestedEvents = [
     { id: 1, name: "City Marathon", description: "Based on the success of Charity Run 2023" },
@@ -9,7 +11,11 @@ const suggestedEvents = [
   ];
 
 function SuggestedEvents() {
-  const [events, setEvents] = useState([]); // Ensure initial state is an empty array
+  const [events, setEvents] = useState([]); 
+  
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const userId = params.get('userId');// Ensure initial state is an empty array
   
   useEffect(() => {
     const fetchEvents = async () => {
@@ -27,7 +33,7 @@ function SuggestedEvents() {
 
   return (
     <div>
-      <Header />
+      {userId === "maureen" ? <Header userId={userId} /> : <HeaderUser />}
       <section className="mb-10">
         <hr className="mb-4" />
         <h2 className="text-2xl font-semibold mb-4 text-center">Past Successful Events</h2>

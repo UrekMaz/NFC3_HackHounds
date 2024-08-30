@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ChatPage.css'; // Import the CSS file
 import { useLocation } from 'react-router-dom';
+import HeaderUser from './HeaderUser';
 import Header from './Header';
 import Footer from './Footer';
 const ChatPage = () => {
@@ -53,7 +54,7 @@ const ChatPage = () => {
 
     return (
         <>
-            <Header />
+            {userId === "maureen" ? <Header userId={userId} /> : <HeaderUser />}
             <div className="chat-header">
                 <h1>Community Chat</h1>
             </div>
