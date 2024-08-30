@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom/client';
 
 import UserHome from './assets/components/UserHome.jsx';
 import OrgHome from './assets/components/OrgHome.jsx';
-import Inventory from './assets/components/InventoryTable.jsx';
+
 import SuggestedEvents from './assets/components/SuggestedEvents.jsx';
 import AddEvent from './assets/compo/AddEvent.jsx';
 import Streamlit from './streamlit.jsx';
@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/user-home" element={<UserHome />} />
         <Route path='/org-home' element={<OrgHome />} />
-        <Route path="/inventory" element={<Inventory/>}/>
+        <Route path='/logout' element={<Login />} />
         <Route path="/analytics" element={<Streamlit/>}/>
         {/* <Route path="/inventory" element={<OrgHome />} /> */}
         <Route path="/suggested-events" element={<SuggestedEvents />} />

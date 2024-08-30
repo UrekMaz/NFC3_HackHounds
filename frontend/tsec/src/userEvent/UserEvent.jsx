@@ -22,11 +22,11 @@ function CustomCard() {
   };
 
   return (
-    <Card className="event-card eve-card">
-      <div className="event-card-bg eve-card-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
-        <Card.Body className="event-card-body eve-card-body">
-          <Card.Title className="event-card-title eve-card-title">Story Telling</Card.Title>
-          <Button variant="primary" className="event-card-button eve-card-button" onClick={handleButtonClick}>
+    <Card className="custom-card1">
+      <div className="custom-card1-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
+        <Card.Body className="custom-card1-body">
+          <Card.Title className="custom-card1-title">Story Telling</Card.Title>
+          <Button variant="primary" className="custom-card1-button" onClick={handleButtonClick}>
             Suggested Event
           </Button>
         </Card.Body>
@@ -85,7 +85,7 @@ function EventRow({ event }) {
   };
 
   return (
-    <div className="event-card ">
+    <div className="event-card  " style={{  width: '400px' }}>
       <div className="event-map">
         <MapContainer center={position} zoom={13} style={{ height: '300px', width: '100%' }}>
           <TileLayer
@@ -102,9 +102,7 @@ function EventRow({ event }) {
       <div className="event-body">
         <div className="event-header">
           <h3 className="event-title">{event.ogName}</h3>
-          <div className="funding-status">
-            {Math.round((fund / crowdfund) * 100)}% Funded
-          </div>
+         
         </div>
         <div className="event-details">
           <div className="detail-item">

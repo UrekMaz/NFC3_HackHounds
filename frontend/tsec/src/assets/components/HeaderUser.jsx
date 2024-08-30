@@ -86,8 +86,11 @@ const HeaderUser = ({ userId }) => {
           <div className="menuItem" onClick={handleMenuClose}>
             <FaUser style={{ marginRight: '8px' }} /> {displayButton('Profile', 'प्रोफ़ाइल', 'પ્રોફાઇલ', 'प्रोफाइल')}
           </div>
-          <div className="menuItem" onClick={handleMenuClose}>
-            <FaSignOutAlt style={{ marginRight: '8px' }} /><button onClick={() => navigate('/')}> {displayButton('Logout', 'लॉग आउट', 'લોગ આઉટ', 'बाहेर पडणे')}</button>
+          <div className="menuItem" onClick={(e) => e.stopPropagation()}>
+            <FaSignOutAlt style={{ marginRight: '8px' }} />
+            <button onClick={() => navigate('/logout')}>
+              {displayButton('Logout', 'लॉग आउट', 'લોગ આઉટ', 'बाहेर पडणे')}
+            </button>
           </div>
           <div className="menuItem" onClick={handleLanguageDropdownOpen}>
             <FaGlobe style={{ marginRight: '8px' }} /> {displayButton('Language Change', 'भाषा बदलें', 'ભાષા બદલો', 'भाषा बदला')}

@@ -1,53 +1,48 @@
-.grid-container {
+.custom-grid-container {
     display: grid;
-    grid-template-rows: auto auto auto auto; /* Define rows for button, card, title, and event list */
-    gap: 20px; /* Space between the grid items */
-    width: 100%; /* Full width */
-    padding: 20px; /* Padding around the grid */
-    background-color: #f4f4f4; /* Light gray background for the entire container */
+    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    background-color: #f4f4f4;
   }
   
-  .button-container,
-  .card-container,
-  .current-events {
-    text-align: center; /* Center align the text */
+  .custom-button-container,
+  .custom-card-container,
+  .custom-current-events {
+    text-align: center;
   }
   
-  /* Button styling */
-  .button-container button {
-    background-color: #FF9100; /* Orange color for the button */
-    border: none; /* Remove default border */
-    color: white; /* White text */
-    padding: 10px 20px; /* Adjust button padding */
-    font-size: 16px; /* Adjust button font size */
+  .custom-button-container button {
+    background-color: #FF9100;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
     border-radius: 10px;
   }
   
-  .button-container button:hover {
-    background-color: #FF9100; /* Darker orange on hover */
+  .custom-button-container button:hover {
+    background-color: #FF9100;
   }
   
-  /* Card styling */
-  .card-container .card {
-    border: 2px solid #9c27b0; /* Purple border for the card */
-    padding: 10px; /* Adjust card padding */
+  .custom-card-container .custom-card {
+    border: 2px solid #9c27b0;
+    padding: 10px;
   }
   
-  /* Current events title styling */
-  .current-events h2 {
-    color: #9c27b0; /* Purple color for the title */
-    margin-bottom: 10px; /* Adjust space below the title */
+  .custom-current-events h2 {
+    color: #9c27b0;
+    margin-bottom: 10px;
   }
   
-  /* Event list styling */
-  .event-list {
+  .custom-event-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Two cards per row */
-    gap: 20px; /* Space between each event card */
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
   }
   
-  /* Event card styling */
-  .event-card {
+  .custom-card {
     display: flex;
     flex-direction: column;
     border-radius: 12px;
@@ -57,15 +52,15 @@
     transition: all 0.3s ease;
     overflow: hidden;
     margin: 20px;
-    width:400px;
+    width: 400px;
   }
   
-  .event-card:hover {
+  .custom-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
   
-  .event-header {
+  .custom-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,38 +69,38 @@
     border-bottom: 1px solid #e0e0e0;
   }
   
-  .event-title {
+  .custom-title {
     font-size: 1.2rem;
     color: #333;
     margin: 0;
   }
   
-  .funding-status {
+  .custom-funding-status {
     font-size: 1rem;
     font-weight: bold;
   }
   
-  .event-body {
+  .custom-body {
     padding: 20px;
   }
-
-  .event-details {
+  
+  .custom-details {
     display: grid;
     gap: 10px;
   }
   
-  .detail-item {
+  .custom-detail-item {
     display: flex;
     align-items: center;
     gap: 10px;
     color: #555;
   }
   
-  .detail-item svg {
+  .custom-detail-item svg {
     color: #9c27b0;
   }
   
-  .funding-chart {
+  .custom-funding-chart {
     width: 100px;
     height: 100px;
     position: relative;
@@ -114,14 +109,14 @@
     align-items: center;
   }
   
-  .funding-label {
+  .custom-funding-label {
     position: absolute;
     font-size: 0.9rem;
     font-weight: bold;
     color: #333;
   }
   
-  .event-map {
+  .custom-map {
     width: 100%;
     height: 300px;
     margin-bottom: 20px;
@@ -132,76 +127,59 @@
   }
   
   @media (max-width: 768px) {
-    .event-list {
-      grid-template-columns: 1fr; /* Single column on smaller screens */
-    }
-  
-    .event-body {
-      flex-direction: column;
-    }
-  
-    .event-details {
+    .custom-event-list {
       grid-template-columns: 1fr;
     }
-  
-    .funding-chart {
-      margin-top: 20px;
-      align-self: center;
-    }
   }
-
-  .eve-card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 12px;
-    border: 1px solid #e0e0e0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+  .custom-card1 {
+    width: 100%; /* Occupy 100% width */
+    border: 1px solid #9b59b6; /* Purple border */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-bottom: 20px;
-    height: 300px; /* Set the height of the card */
-    width:100%;
+    transition: transform 0.2s;
   }
   
-  .eve-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  .custom-card1:hover {
+    transform: scale(1.05);
   }
   
-  .eve-card-bg {
+  .custom-card1-bg {
     background-size: cover;
     background-position: center;
-    height: 100%; /* Ensure the background covers the entire card */
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .eve-card-body {
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    color: white;
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
+  .custom-card1-body {
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
   }
   
-  .eve-card-title {
+  .custom-card1-title {
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
   }
   
-  .eve-card-button {
-    background-color: #FF9100;
+  .custom-card1-button {
+    background-color: #9b59b6; /* Purple background */
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 4px;
     color: white;
-    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
   }
   
-  .eve-card-button:hover {
-    background-color: #7B2CBF;
-    color: white;
+  .custom-card1-button:hover {
+    background-color: #8e44ad; /* Darker purple on hover */
   }

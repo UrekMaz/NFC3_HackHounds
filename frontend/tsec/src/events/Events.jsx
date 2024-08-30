@@ -21,11 +21,11 @@ function CustomCard() {
   };
 
   return (
-    <Card className="event-card eve-card">
-      <div className="event-card-bg eve-card-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
-        <Card.Body className="event-card-body eve-card-body">
-          <Card.Title className="event-card-title eve-card-title">Story Telling</Card.Title>
-          <Button variant="primary" className="event-card-button eve-card-button" onClick={handleButtonClick}>
+    <Card className="custom-card1">
+      <div className="custom-card1-bg" style={{ backgroundImage: "url('../assets/images/events_pic.jpeg')" }}>
+        <Card.Body className="custom-card1-body">
+          <Card.Title className="custom-card1-title">Story Telling</Card.Title>
+          <Button variant="primary" className="custom-card1-button" onClick={handleButtonClick}>
             Suggested Event
           </Button>
         </Card.Body>
@@ -36,15 +36,12 @@ function CustomCard() {
 
 // EventRow Component
 function EventRow({ event }) {
-  const crowdfund = event.fund; // Adjust this if you have different data for crowdfund
+  const crowdfund = event.fund;
   const fund = event.fundCollect;
-  const defaultPosition = [19.1197, 72.8468]; // Default to Andheri, Mumbai if location is not provided
-  const bandraPosition = [19.0600, 72.8365]; // Coordinates for Bandra, Mumbai
-
-  // Set position based on event.loc
+  const defaultPosition = [19.1197, 72.8468];
+  const bandraPosition = [19.0600, 72.8365];
   const position = event.loc === "Bandra, Mumbai" ? bandraPosition : (event.location || defaultPosition);
 
-  // Fix for Leaflet marker icon issue
   delete L.Icon.Default.prototype._getIconUrl;
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
@@ -53,8 +50,8 @@ function EventRow({ event }) {
   });
 
   return (
-    <div className="event-card ">
-      <div className="event-map">
+    <div className="custom-card">
+      <div className="custom-map">
         <MapContainer center={position} zoom={13} style={{ height: '300px', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -67,41 +64,34 @@ function EventRow({ event }) {
           </Marker>
         </MapContainer>
       </div>
-      <div className="event-body">
-        <div className="event-header">
-          <h3 className="event-title">{event.ogName}</h3>
-          <div className="funding-status">
-            {Math.round((fund / crowdfund) * 100)}% Funded
-          </div>
+      <div className="custom-body">
+        <div className="custom-header">
+          <h3 className="custom-title">{event.ogName}</h3>
+          <hr></hr>
         </div>
-        <div className="event-details">
-          <div className="detail-item">
+        
+        <div className="custom-details">
+          <div className="custom-detail-item">
             <FontAwesomeIcon icon={faCalendarAlt} />
             <span>{new Date(event.date).toLocaleDateString()}</span>
           </div>
-          <div className="detail-item">
+          <div className="custom-detail-item">
             <FontAwesomeIcon icon={faMapMarkerAlt} />
             <span>{event.loc}</span>
           </div>
-          <div className="detail-item">
+          <div className="custom-detail-item">
             <FontAwesomeIcon icon={faBullseye} />
             <span>Goal: ${event.fund}</span>
           </div>
-          <div className="detail-item">
+          <div className="custom-detail-item">
             <FontAwesomeIcon icon={faDollarSign} />
             <span>Current Funding: ${event.fundCollect}</span>
           </div>
-          <div className="detail-item">
+          <div className="custom-detail-item">
             <FontAwesomeIcon icon={faUsers} />
             <span>No of volunteers: {event.vol}</span>
           </div>
         </div>
-        {/* <div className="funding-chart">
-          <FundPieChart crowdfund={crowdfund} fund={fund} />
-          <div className="funding-label">
-            {Math.round((fund / crowdfund) * 100)}%
-          </div>
-        </div> */}
       </div>
     </div>
   );
@@ -113,8 +103,6 @@ function TwoColumnGrid() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('TwoColumnGrid component rendered'); // Add this line
-    // Fetch event data from the server
     const fetchEvents = async () => {
       try {
         const response = await axios.get('http://localhost:3000/getEvent');
@@ -126,41 +114,37 @@ function TwoColumnGrid() {
 
     fetchEvents();
 
-    // Add event listener for "Enter" key press
     const handleKeyDown = (event) => {
       if (event.key === 'Enter') {
-        console.log('Enter key pressed, navigating to /uploadevent');
         navigate('/uploadevent');
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [navigate]);
 
   const handleAddEventClick = () => {
-    console.log('Navigating to /uploadevent');
     navigate('/uploadevent');
   };
 
   return (
     <>
       <Header />
-      <div className="grid-container">
-        <div className="grid-item button-container">
-          <button className="button" onClick={handleAddEventClick}>Add Event</button>
+      <div className="custom-grid-container">
+        <div className="custom-grid-item custom-button-container">
+          <button className="custom-button" onClick={handleAddEventClick}>Add Event</button>
         </div>
-        <div className="grid-item card-container">
+        <div className="custom-grid-item custom-card-container">
           <CustomCard />
         </div>
-        <div className="current-events">
+        <div className="custom-current-events">
           <h2>CURRENT EVENTS</h2>
         </div>
-        <div className="event-list">
+        <div className="custom-event-list">
           {events.map((event) => (
             <EventRow key={event._id} event={event} />
           ))}
