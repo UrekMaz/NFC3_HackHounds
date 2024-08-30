@@ -19,7 +19,7 @@ import Streamlit from './streamlit.jsx';
 
 import CommunityHomePage from './assets/components/CommunityHomePage.jsx'
 import ChatPage from './assets/components/ChatCommunity.jsx'
-import Streamlit from './Streamlit.jsx'
+import Inventory from './assets/components/InventoryTable.jsx'
 import Volunteer from './volunteer/Volunteer.jsx'
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
         <Route path="/events" element={<TwoColumnGrid/>}/>
         <Route path="/userevent" element={<UserEvent/>}/>
         <Route path="/uploadevent" element={<AddEvent/>}/>
-        <Route path="/analytics" element={<Streamlit/>}/>
+       <Route path="/inventory" element={<Inventory/>}/>
         <Route path="/volunteer" element={<Volunteer/>}/>
 
         <Route path="/community" element={<CommunityHomePage />} />

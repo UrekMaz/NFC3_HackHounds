@@ -64,7 +64,7 @@ const Header = ({userId}) => {
       <div className="buttons-container">
         {/* Navigation buttons */}
 
-//         <button className="button" onClick={() => navigate('/user-home')}>
+
 
 
         <button className="button" onClick={() => navigate('/?userId=' + userId)}>
@@ -79,7 +79,7 @@ const Header = ({userId}) => {
           {displayButton('Analytics', 'विश्लेषिकी', 'વિશ્લેષણ', 'विश्लेषण')}
         </button>
         {/* VENISHA ADD HERE */}
-        <button className="button" onClick={() => navigate('/?userId=' + userId)}>
+        <button className="button" onClick={() => navigate('/inventory/?userId=' + userId)}>
           {displayButton('Inventory Management', 'सूची प्रबंधन', 'જથ્થો વ્યવસ્થાપન', 'साठा व्यवस्थापन')}
         </button>
 

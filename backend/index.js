@@ -15,10 +15,6 @@ const User = require('./models/User.js');
 const Event = require('./models/eventSchema.js');
 const Past = require('./models/PastEvents.js');
 
-
-const app = express();
-const port = process.env.PORT || 3000;
-
 const Community = require('./models/community.js');
 
 // Set up file upload limits
