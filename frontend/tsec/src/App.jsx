@@ -16,11 +16,21 @@ import OrgHome from './assets/components/OrgHome.jsx';
 import SuggestedEvents from './assets/components/SuggestedEvents.jsx';
 import AddEvent from './assets/compo/AddEvent.jsx';
 import Streamlit from './streamlit.jsx';
-
+import Kommunicate from "@kommunicate/kommunicate-chatbot-plugin";
 import CommunityHomePage from './assets/components/CommunityHomePage.jsx'
 import ChatPage from './assets/components/ChatCommunity.jsx'
 import Inventory from './assets/components/InventoryTable.jsx'
 import Volunteer from './volunteer/Volunteer.jsx'
+import KommunicateChat from './chat.js';
+
+Kommunicate.init("3f215f3d237e4894c29b6a44649a7e48a", {
+  automaticChatOpenOnNavigation: false,
+  popupWidget: false,
+  botIds: ["careconnect-anv3z"], // Replace with your actual bot ID
+  widgetSettings: {
+    primaryColor: "#7b2cbf"
+  }
+});
 
 function App() {
   return (

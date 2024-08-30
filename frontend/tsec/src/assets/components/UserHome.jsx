@@ -26,6 +26,12 @@ const UserHome = () => {
     const scrollToFund = () => {
         fundRef.current.scrollIntoView({ behavior: 'smooth' });
     };
+    const openKommunicateChat = () => {
+        if (window.kommunicate) {
+            window.kommunicate.launchConversation();
+        }
+    };
+
     return (
         <LanguageProvider>
             <div>
@@ -102,7 +108,7 @@ const UserHome = () => {
                     <Fund />
                 </div>
                  {/* Floating Chat Button */}
-                 <button className="floating-chat-button">
+                  <button className="floating-chat-button" onClick={openKommunicateChat}>
                     <FontAwesomeIcon icon={faComments} />
                 </button>
 
@@ -113,8 +119,8 @@ const UserHome = () => {
                 onClick={scrollToFund} 
                 style={{
                     position: 'fixed',
-                    bottom: '20px',
-                    right: '20px',
+                    bottom: '90px',
+                    right: '30px',
                     backgroundColor: '#ff9100',
                     color: 'white',
                     border: 'none',
