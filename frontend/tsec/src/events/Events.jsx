@@ -10,14 +10,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faMapMarkerAlt, faBullseye, faDollarSign, faUsers, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useLocation } from 'react-router-dom';
 import L from 'leaflet';
 
 // Custom Card Component
 function CustomCard() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const userId = params.get('userId');
 
   const handleButtonClick = () => {
-    navigate('/suggested-events');
+    navigate(`/suggested-events?userId=${userId}`);
   };
 
   return (
@@ -101,6 +105,9 @@ function EventRow({ event }) {
 function TwoColumnGrid() {
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const userId = params.get('userId');
 
   useEffect(() => {
     const fetchEvents = async () => {
