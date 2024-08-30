@@ -59,8 +59,8 @@
 }
 .floating-chat-button {
     position: fixed;
-    bottom: 90px;
-    right: 20px;
+    bottom: 20px;
+    right: 30px;
     background-color: #7B2CBF;
 
     color: white;
