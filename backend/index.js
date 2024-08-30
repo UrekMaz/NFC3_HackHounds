@@ -45,6 +45,74 @@ mongoose.connect('mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb
     });
 
 // Define Routes
+app.post('/cancel_request/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const request = await Request.findById(id);
+        if (request) {
+            request.stage = 'Cancelled';
+            await request.save();
+            res.status(200).json({ success: true });
+        } else {
+            res.status(404).json({ message: 'Request not found' });
+        }
+    } catch (error) {
+        console.error('Error cancelling request:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Define Routes
+app.post('/accept_request/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const request = await Request.findById(id);
+        if (request) {
+            request.stage = 'Accepted';
+            await request.save();
+            res.status(200).json({ success: true });
+        } else {
+            res.status(404).json({ message: 'Request not found' });
+        }
+    } catch (error) {
+        console.error('Error cancelling request:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+app.get('/getRequestsFrom/:from', async (req, res) => {
+    const { from } = req.params; // Use req.params for URL path parameters
+    console.log("Reach here from : " + from);
+    try {
+        const requests = await Request.find({ from });
+        res.json(requests);
+    } catch (error) {
+        console.error('Error fetching requests:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/get_request', async (req, res) => {
+    const { userId } = req.query; // Get userId from query parameters
+    
+   console.log(userId)
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    try {
+       
+        const events = await Request.find({ to: userId });
+       
+        if (events.length === 0) {
+            return res.status(404).json({ message: 'No events found for the provided userId' });
+        }
+
+        res.json(events);
+    } catch (error) {
+        console.error('Error fetching request for user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 // Add Event
 app.post('/addEvent', async (req, res) => {
@@ -261,6 +329,7 @@ app.post('/resource_requests', async (req, res) => {
         res.status(422).json({ error: 'Failed to submit request', details: err.message });
     }
 });
+
 
 
 app.listen(port, () => {
