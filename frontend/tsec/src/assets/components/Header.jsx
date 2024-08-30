@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,useLocation} from 'react-router-dom';
 import './stylesHeader.css'; // Import the CSS file
 import { FaUser, FaSignOutAlt, FaGlobe, FaLanguage } from 'react-icons/fa';
 import { useLanguage } from '../../LanguageContext';
 import logo from '../../../public/assets/images/no_bkg.png';
 
-const Header = ({ userId }) => {
+const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false); // State to manage language dropdown menu
   const { language, changeLanguage } = useLanguage(); // Destructure language and changeLanguage from context
   const [isRotated, setIsRotated] = useState(false);
   const navigate = useNavigate(); // Initialize the navigate function
-
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const userId = params.get('userId');
   const handleMenuOpen = (event) => {
     if (anchorEl) {
       setAnchorEl(null);
